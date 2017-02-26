@@ -23,7 +23,7 @@
                 <version>2.6</version>
                 <configuration>
                     <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
-                    <warName>restaurantapp</warName>
+                    <warName>walkietalkie</warName>
                 </configuration>
             </plugin>
         </plugins>
@@ -36,6 +36,35 @@
             <version>4.3.6.RELEASE</version>
         </dependency>
 
+     <!--   <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-neo4j</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-neo4j-rest</artifactId>
+            <version>3.4.6.RELEASE</version>
+        </dependency>
+
+
+
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
+    </repositories>
 
 </project>
