@@ -4,8 +4,10 @@ import com.mokujin.domain.Profile;
 import com.mokujin.repository.ProfileDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("profileService")
+@Transactional
 public class IProfileService implements ProfileService {
 
     @Autowired
