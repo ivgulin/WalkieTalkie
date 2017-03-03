@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>cyka</title>
+</h:head>
+
+<h:body>
+    <h2>Registration</h2>
+    <h:form>
+        <h:outputText value="User Name: "/>
+        <h:inputText value="#{profileBean.profile.userName}"/>
+        <br/>
+        <h:outputText value="First Name: "/>
+        <h:inputText value="#{profileBean.profile.firstName}"/>
+        <br/>
+        <h:outputText value="Last Name: "/>
+        <h:inputText value="#{profileBean.profile.lastName}"/>
+        <br/>
+        <h:outputText value="Email: "/>
+        <h:inputText value="#{profileBean.profile.email}"/>
+        <br/>
+        <h:outputText value="Password: "/>
+        <h:inputText value="#{profileBean.profile.password}"/>
+        <br/>
+        <br/>
+        <h:commandButton value="Register" type="submit" action="#{profileBean.create}"/>
+    </h:form>
+</h:body>
+</html>

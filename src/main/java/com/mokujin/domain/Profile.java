@@ -4,7 +4,6 @@ package com.mokujin.domain;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
-
 @NodeEntity
 public class Profile {
 
@@ -18,13 +17,6 @@ public class Profile {
     private String password;
 /*    private byte[] photo;*/
 
-    public Profile(String userName, String firstName, String lastName, String email, String password) {
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-    }
 
     public String getUserName() {
         return userName;
@@ -70,9 +62,6 @@ public class Profile {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
    /* public byte[] getPhoto() {
         return photo;
@@ -81,4 +70,19 @@ public class Profile {
     public void setPhoto(byte[] photo) {
         this.photo = photo;
     }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Profile profile = (Profile) o;
+
+        return id != null ? id.equals(profile.id) : profile.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

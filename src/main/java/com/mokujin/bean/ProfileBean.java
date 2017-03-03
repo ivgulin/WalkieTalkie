@@ -1,24 +1,31 @@
-package com.mokujin;
+package com.mokujin.bean;
 
 import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
 
+import javax.faces.bean.ManagedBean;
 
-@EnableNeo4jRepositories
-public class Application {
+@ManagedBean(name = "profileBean")
+public class ProfileBean {
+    Profile profile = new Profile();
 
-    public static void main(String[] args) {
-        ApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("application-context.xml");
-        ProfileService profileService = (ProfileService) applicationContext.getBean("profileService");
-        Profile profile =
-                new Profile("new","name","surname","mail","password");
-        profileService.create(profile);
-
+    public Profile getProfile() {
+        return profile;
     }
 
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
 
+    public void create(){
+        ClassPathXmlApplicationContext applicationContext =
+                new ClassPathXmlApplicationContext("application-context.xml");
+        ProfileService profileService = (ProfileService) applicationContext.getBean("profileService");
+
+        profileService.create(profile);
+
+        applicationContext.close();
+    }
 }
