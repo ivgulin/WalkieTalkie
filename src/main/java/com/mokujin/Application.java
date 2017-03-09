@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Application {
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-context.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("WEB-INF/application-context.xml");
         ProfileService profileService = (ProfileService) applicationContext.getBean("profileService");
         Profile profile = new Profile();
         profile.setUserName("user");

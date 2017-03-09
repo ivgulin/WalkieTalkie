@@ -1,13 +1,9 @@
 package com.mokujin.domain;
 
 
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.NodeEntity;
-
-@NodeEntity
 public class Profile {
 
-    @GraphId
+
     private Long id;
 
     private String userName;
@@ -15,7 +11,7 @@ public class Profile {
     private String lastName;
     private String email;
     private String password;
-/*    private byte[] photo;*/
+    private byte[] photo;
 
 
     public String getUserName() {
@@ -63,13 +59,13 @@ public class Profile {
     }
 
 
-   /* public byte[] getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
-    }*/
+    }
 
     @Override
     public boolean equals(Object o) {
