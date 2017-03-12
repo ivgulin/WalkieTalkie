@@ -1,18 +1,23 @@
 package com.mokujin.domain;
 
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
 
+@NodeEntity
 public class Profile {
-
-
+    @GraphId
     private Long id;
 
     private String userName;
     private String firstName;
-    private String lastName;
+/*    private String lastName;
     private String email;
     private String password;
-    private byte[] photo;
+    private byte[] photo;*/
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;
@@ -30,7 +35,7 @@ public class Profile {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+/*    public String getLastName() {
         return lastName;
     }
 
@@ -65,7 +70,7 @@ public class Profile {
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {

@@ -6,14 +6,12 @@ import com.mokujin.service.ProfileService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@Controller
+@RestController("/")
 public class ProfileController {
     private final ProfileService profileService;
 
@@ -23,7 +21,7 @@ public class ProfileController {
     }
 
 
-    @RequestMapping("/")
+   /* @RequestMapping("/")
     public String home() {
         return "index";
     }
@@ -36,6 +34,11 @@ public class ProfileController {
         }
         profileService.create(profile);
         return "redirect:/";
+    }*/
+
+    @RequestMapping(value = "/profile")
+    public Profile profile(@RequestParam(value = "id", required = false, defaultValue = "1") Long id) {
+        return profileService.find(id);
     }
 
 

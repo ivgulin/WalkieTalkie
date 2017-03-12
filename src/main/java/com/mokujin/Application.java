@@ -2,24 +2,20 @@ package com.mokujin;
 
 import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Created by mokujin on 04.03.2017.
  */
+@SpringBootApplication
+@ComponentScan
 public class Application {
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("WEB-INF/application-context.xml");
-        ProfileService profileService = (ProfileService) applicationContext.getBean("profileService");
-        Profile profile = new Profile();
-        profile.setUserName("user");
-        profile.setFirstName("first");
-        profile.setLastName("last");
-        profile.setEmail("email");
-        profile.setPassword("password");
-
-        profileService.create(profile);
-        System.out.println("Profile Created successfully");
+        SpringApplication.run(Application.class, args);
     }
 }
