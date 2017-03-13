@@ -30,7 +30,7 @@ public class ProfileController {
         return profileService.create(profile);
     }
 
-    @RequestMapping(value = "/profile")
+    @GetMapping("/profile")
     public Profile profile(@RequestParam(value = "id", required = false, defaultValue = "1") Long id) {
         return profileService.find(id);
     }
