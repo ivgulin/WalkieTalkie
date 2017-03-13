@@ -10,14 +10,11 @@ public class Profile {
 
     private String userName;
     private String firstName;
-/*    private String lastName;
+    private String lastName;
     private String email;
     private String password;
-    private byte[] photo;*/
+    private byte[] photo;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUserName() {
         return userName;
@@ -35,7 +32,7 @@ public class Profile {
         this.firstName = firstName;
     }
 
-/*    public String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
@@ -70,20 +67,6 @@ public class Profile {
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
-    }*/
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Profile profile = (Profile) o;
-
-        return id != null ? id.equals(profile.id) : profile.id == null;
     }
 
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
 }

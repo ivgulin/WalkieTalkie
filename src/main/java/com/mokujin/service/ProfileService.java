@@ -13,9 +13,10 @@ public class ProfileService {
     @Autowired
     private ProfileDAO profileDAO;
 
-    public void create(Profile profile) {
-        profileDAO.save(profile);
+    public Profile create(Profile profile) {
+        return profileDAO.save(profile);
     }
+
 
     public Profile find(Long id) {
         return profileDAO.findOne(id);
