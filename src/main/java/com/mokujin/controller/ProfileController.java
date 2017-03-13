@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@RestController("/")
+@RestController("/profile")
 public class ProfileController {
     private final ProfileService profileService;
 
@@ -22,10 +22,11 @@ public class ProfileController {
 
     @PostMapping("/add_profile")
     public Profile profile(@ModelAttribute("profile") Profile profile,
-                           @ModelAttribute("file") MultipartFile file) {
+                           @RequestParam("file") MultipartFile file) {
         if (file != null) {
             profile.setPhoto(convertFileToByteArray(file));
         }
+        System.out.println(profile);
         return profileService.create(profile);
     }
 

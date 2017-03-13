@@ -5,38 +5,8 @@
     <title>Walkie Talkie</title>
 </head>
 <body>
-<form th:action="@{/add_profile}" th:object="${}" enctype="multipart/form-data" method="post">
-    <table class="center">
-       <!-- <tr>
-            <td>User Name:</td>
-            <td><input type="text" title="userName"></td>
-        </tr>
-        <tr>
-            <td>First Name:</td>
-            <td><input type="text" title="firstName"/></td>
-        </tr>
-        <tr>
-            <td>Last Name:</td>
-            <td><input type="text" title="lastName"/></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" title="email"/></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type="text" title="password"/></td>
-        </tr>
-        <tr>
-            <td>Employee Photo:</td>
-            <td><input type="file" accept=".jpg" title="file"/></td>
-        </tr>-->
-
-        <label for="firstName">First name:</label>
-        <input type="text" th:field="*{firstName}" value="John" />
-
-    </table>
-    <input type="submit" class="button" id="2" value="Add"/>
+<form th:action="@{registration.html}" method="get">
+    <button type="submit" class="button">Registration</button>
 </form>
 </body>
 </html>

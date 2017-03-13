@@ -3,6 +3,8 @@ package com.mokujin.domain;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 
+import java.util.Arrays;
+
 @NodeEntity
 public class Profile {
     @GraphId
@@ -69,4 +71,16 @@ public class Profile {
         this.photo = photo;
     }
 
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", photo=" + Arrays.toString(photo) +
+                '}';
+    }
 }
