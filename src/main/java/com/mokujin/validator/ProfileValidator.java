@@ -23,39 +23,42 @@ public class ProfileValidator implements Validator{
     public void validate(Object o, Errors errors) {
         Profile profile = (Profile) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userName", "Empty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "Empty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "Empty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Empty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "Empty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmedPassword", "Empty");
+
 
         if (!profile.getEmail().contains("@") || !profile.getEmail().contains(".")){
-            errors.rejectValue("mail","not a mail");
+            errors.rejectValue("email","Mistake.mail");
         }
 
-        if (profile.getEmail().length() < 6 || profile.getEmail().length() > 32) {
-            errors.rejectValue("username", "Size.userForm.email");
-        }
-
-        if (profile.getFirstName().length() < 1) {
-            errors.rejectValue("username", "Size.userForm.username");
-        }
-
-        if (profile.getFirstName().length() < 1) {
-            errors.rejectValue("username", "Size.userForm.username");
-        }
 
         if (profile.getUserName().length() < 6 || profile.getUserName().length() > 32) {
-            errors.rejectValue("username", "Size.userForm.username");
-        }
-        if (service.findByUsername(profile.getUserName()) != null) {
-            errors.rejectValue("username", "Duplicate.userForm.username");
+            errors.rejectValue("username", "Length.username");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
+        if (service.findByUsername(profile.getUserName()) != null) {
+            errors.rejectValue("username", "Duplicate.username");
+        }
+
+        if (service.findByEmail(profile.getEmail()) != null) {
+            errors.rejectValue("username", "Duplicate.email");
+        }
 
         if (profile.getPassword().length() < 8 || profile.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.userForm.password");
+            errors.rejectValue("password", "Length.password");
         }
 
-        if (!profile.getConfirmPassword().equals(profile.getPassword())) {
-            errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+        if (!profile.getConfirmedPassword().equals(profile.getPassword())) {
+            errors.rejectValue("passwordConfirm", "Mistake.confirmedPassword");
         }
     }
 }

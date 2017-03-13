@@ -1,20 +1,20 @@
 package com.mokujin;
 
-import com.mokujin.domain.Profile;
-import com.mokujin.service.ProfileService;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-/**
- * Created by mokujin on 04.03.2017.
- */
+
 @SpringBootApplication
 @ComponentScan
-public class Application {
+public class Application extends SpringBootServletInitializer {
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

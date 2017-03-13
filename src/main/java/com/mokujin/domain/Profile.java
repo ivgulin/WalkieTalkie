@@ -3,8 +3,6 @@ package com.mokujin.domain;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 
-import java.util.Arrays;
-
 @NodeEntity
 public class Profile {
     @GraphId
@@ -15,7 +13,7 @@ public class Profile {
     private String lastName;
     private String email;
     private String password;
-    private String confirmPassword;
+    private String confirmedPassword;
     private byte[] photo;
 
 
@@ -59,12 +57,12 @@ public class Profile {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
+    public String getConfirmedPassword() {
+        return confirmedPassword;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
+    public void setConfirmedPassword(String confirmedPassword) {
+        this.confirmedPassword = confirmedPassword;
     }
 
     public Long getId() {

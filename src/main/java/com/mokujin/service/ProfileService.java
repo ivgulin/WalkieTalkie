@@ -14,9 +14,11 @@ public class ProfileService {
     @Autowired
     private ProfileDAO profileDAO;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     public Profile save(Profile profile) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         profile.setPassword(bCryptPasswordEncoder.encode(profile.getPassword()));
         return profileDAO.save(profile);
     }
