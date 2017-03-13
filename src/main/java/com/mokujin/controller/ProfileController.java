@@ -3,12 +3,14 @@ package com.mokujin.controller;
 
 import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @RestController("/profile")
 public class ProfileController {
@@ -27,7 +29,7 @@ public class ProfileController {
             profile.setPhoto(convertFileToByteArray(file));
         }
         System.out.println(profile);
-        return profileService.create(profile);
+        return profileService.save(profile);
     }
 
     @GetMapping("/profile")

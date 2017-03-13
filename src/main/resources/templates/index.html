@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Walkie Talkie</title>
 </head>
 <body>
+
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<form th:action="@{/j_spring_security_check}" method="post">
+    <div><label> User Name : <input type="text" name="j_username"/> </label></div>
+    <div><label> Password: <input type="password" name="j_password"/> </label></div>
+    <div><input type="submit" value="Sign In"/></div>
+</form>
+
 <form th:action="@{registration.html}" method="get">
     <button type="submit" class="button">Registration</button>
 </form>

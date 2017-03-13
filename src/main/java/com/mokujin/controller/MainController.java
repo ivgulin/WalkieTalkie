@@ -4,6 +4,7 @@ import com.mokujin.domain.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,5 +21,15 @@ public class MainController {
         model.addAttribute("profile", profile);
         model.addAttribute("file", null);
         return "registration";
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "index";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        return "index";
     }
 }
