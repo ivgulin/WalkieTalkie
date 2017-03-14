@@ -8,7 +8,7 @@ public class Profile {
     @GraphId
     private Long id;
 
-    private String userName;
+    private String username;
     private String firstName;
     private String lastName;
     private String email;
@@ -17,12 +17,12 @@ public class Profile {
     private byte[] photo;
 
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -82,7 +82,7 @@ public class Profile {
     public String toString() {
         return "Profile{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

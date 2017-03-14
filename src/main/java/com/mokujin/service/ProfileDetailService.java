@@ -21,12 +21,12 @@ public class ProfileDetailService implements UserDetailsService {
     ProfileService profileService;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Profile profile = profileService.findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Profile profile = profileService.findByUsername(username);
         System.out.println(profile);
         Set<GrantedAuthority> roles = new HashSet();
         roles.add(new SimpleGrantedAuthority(RolesEnum.USER.name()));
-        return new User(profile.getEmail(), profile.getPassword(), roles);
+        return new User(profile.getUsername(), profile.getPassword(), roles);
     }
 
 }

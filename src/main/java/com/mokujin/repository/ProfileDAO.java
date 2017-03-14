@@ -15,7 +15,7 @@ public interface ProfileDAO extends GraphRepository<Profile> {
     Profile findByEmail(@Param("email") String email);
 
     @Query("MATCH (profile:Profile)\n" +
-            "    WHERE profile.userName = {userName}\n" +
+            "    WHERE profile.username = {username}\n" +
             "        RETURN profile")
-    Profile findByUserName(@Param("userName") String userName);
+    Profile findByUsername(@Param("username") String username);
 }

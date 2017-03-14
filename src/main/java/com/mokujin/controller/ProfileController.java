@@ -5,7 +5,6 @@ import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
 import com.mokujin.service.SecurityService;
 import com.mokujin.validator.ProfileValidator;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 @Controller("/profile")
 public class ProfileController {
@@ -29,7 +27,12 @@ public class ProfileController {
     private SecurityService securityService;
 
     @GetMapping("/")
-    public String home(Model model, String error, String logout){
+    public String home() {
+        return "index";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model, String error, String logout) {
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
 
@@ -39,8 +42,18 @@ public class ProfileController {
         return "index";
     }
 
+    @PostMapping("/login")
+    public String login(@RequestParam("username") String username, @RequestParam("password") String password) {
+        Profile profile = profileService.findByUsername(username);
+        if (profile == null || !password.equals(profile.getConfirmedPassword())) {
+            return "redirect:/login?error";
+        }
+        securityService.autologin(profile.getUsername(), profile.getConfirmedPassword());
+        return "redirect:/profile";
+    }
+
     @GetMapping("/registration")
-    public String registration(Model model){
+    public String registration(Model model) {
         Profile profile = new Profile();
         model.addAttribute("profile", profile);
         model.addAttribute("file", null);
@@ -49,7 +62,7 @@ public class ProfileController {
 
     @PostMapping("/registration")
     public String profile(@ModelAttribute("profile") Profile profile,
-                           @RequestParam("file") MultipartFile file, BindingResult bindingResult) {
+                          @RequestParam("file") MultipartFile file, BindingResult bindingResult) {
         if (file != null) {
             profile.setPhoto(convertFileToByteArray(file));
         }
@@ -59,16 +72,14 @@ public class ProfileController {
             return "registration";
         }
 
-        /*System.out.println(profile);*///TODO clear this mess up after
-
         Profile savedProfile = profileService.save(profile);
-        securityService.autologin(savedProfile.getEmail(), savedProfile.getConfirmedPassword());
-        return "profile";
+        securityService.autologin(savedProfile.getUsername(), savedProfile.getConfirmedPassword());
+        return "redirect:/profile";
 
     }
 
     @GetMapping("/profile")
-    public String profile(){
+    public String profile() {
         return "profile";
     }
 
@@ -88,9 +99,6 @@ public class ProfileController {
         }
         return photo;
     }
-
-
-
 
 
 }

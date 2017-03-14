@@ -24,19 +24,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/registration").permitAll()
-                .anyRequest().authenticated()
-                .and()
+                .antMatchers("/registration").permitAll()
+                .anyRequest().authenticated();
+
+        http
+                .authorizeRequests()
+                .antMatchers("/profile")
+                .access("USER");
+
+
+        http
                 .formLogin()
-                .loginPage("/")
-                .permitAll()
-                .and()
-                .logout()
+                .loginPage("/login")
                 .permitAll();
+
+        http
+                .logout()
+                .permitAll()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true);
     }
 
     @Autowired

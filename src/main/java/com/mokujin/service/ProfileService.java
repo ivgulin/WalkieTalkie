@@ -20,7 +20,6 @@ public class ProfileService {
 
     public Profile save(Profile profile) {
         profile.setPassword(bCryptPasswordEncoder.encode(profile.getPassword()));
-        System.out.println(profile);
         return profileDAO.save(profile);
     }
 
@@ -30,7 +29,7 @@ public class ProfileService {
     }
 
     public Profile findByUsername(String username){
-        return profileDAO.findByUserName(username);
+        return profileDAO.findByUsername(username);
     }
 
     public Profile findByEmail(String email){

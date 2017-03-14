@@ -23,7 +23,7 @@ public class ProfileValidator implements Validator{
     public void validate(Object o, Errors errors) {
         Profile profile = (Profile) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userName", "Empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "Empty");
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "Empty");
 
@@ -41,11 +41,11 @@ public class ProfileValidator implements Validator{
         }
 
 
-        if (profile.getUserName().length() < 6 || profile.getUserName().length() > 32) {
+        if (profile.getUsername().length() < 6 || profile.getUsername().length() > 32) {
             errors.rejectValue("username", "Length.username");
         }
 
-        if (service.findByUsername(profile.getUserName()) != null) {
+        if (service.findByUsername(profile.getUsername()) != null) {
             errors.rejectValue("username", "Duplicate.username");
         }
 

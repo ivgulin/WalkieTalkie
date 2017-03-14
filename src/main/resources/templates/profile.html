@@ -22,6 +22,12 @@
     <h1>HERE!!</h1>
     <sec:authentication property="userPrincipal.username"/>
 </sec:authorize>
+<sec:authorize access="isAuthenticated()">
+    <p>Ваш логин: <sec:authentication property="principal.username" /></p>
+    <p><a th:href="@{/logout}" role="button">Выйти</a></p>
+
+</sec:authorize>
+
 
 </body>
 </html>
