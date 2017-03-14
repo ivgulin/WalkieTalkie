@@ -23,42 +23,37 @@ public class ProfileValidator implements Validator{
     public void validate(Object o, Errors errors) {
         Profile profile = (Profile) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "Empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "Empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "NotEmpty");
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "Empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "NotEmpty");
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "Empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmedPassword", "Empty");
-
-
-        if (!profile.getEmail().contains("@") || !profile.getEmail().contains(".")){
-            errors.rejectValue("email","Mistake.mail");
-        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmedPassword", "NotEmpty");
 
 
-        if (profile.getUsername().length() < 6 || profile.getUsername().length() > 32) {
-            errors.rejectValue("username", "Length.username");
+        if (profile.getUsername().length() < 4 || profile.getUsername().length() > 32) {
+            errors.rejectValue("username", "Size.profile.username");
         }
 
         if (service.findByUsername(profile.getUsername()) != null) {
-            errors.rejectValue("username", "Duplicate.username");
+            errors.rejectValue("username", "Duplicate.profile.username");
         }
 
         if (service.findByEmail(profile.getEmail()) != null) {
-            errors.rejectValue("username", "Duplicate.email");
+            errors.rejectValue("email", "Duplicate.profile.email");
         }
 
         if (profile.getPassword().length() < 8 || profile.getPassword().length() > 32) {
-            errors.rejectValue("password", "Length.password");
+            errors.rejectValue("password", "Size.profile.password");
         }
 
         if (!profile.getConfirmedPassword().equals(profile.getPassword())) {
-            errors.rejectValue("passwordConfirm", "Mistake.confirmedPassword");
+            errors.rejectValue("confirmedPassword", "Diff.profile.confirmedPassword");
         }
     }
 }

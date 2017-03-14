@@ -1,33 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Walkie Talkie</title>
 </head>
 <body>
-<!--<sec:authorize access="!isAuthenticated()">
-    <script>
-        location="/";
-    </script>
-</sec:authorize>
-<sec:authorize access="isAuthenticated()">
-    <p>Ваш логин:
-        <sec:authentication property="principal.username"/>
-    </p>
-    <p><a class="btn btn-lg btn-danger" th:href="@{/logout}" role="button">Выйти</a></p>
-
-</sec:authorize>-->
-<sec:authorize access="isAuthenticated()">
-    <h1>HERE!!</h1>
-    <sec:authentication property="userPrincipal.username"/>
-</sec:authorize>
-<sec:authorize access="isAuthenticated()">
-    <p>Ваш логин: <sec:authentication property="principal.username" /></p>
-    <p><a th:href="@{/logout}" role="button">Выйти</a></p>
-
-</sec:authorize>
-
 
 </body>
 </html>

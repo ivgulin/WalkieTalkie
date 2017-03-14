@@ -56,15 +56,14 @@ public class ProfileController {
     public String registration(Model model) {
         Profile profile = new Profile();
         model.addAttribute("profile", profile);
-        model.addAttribute("file", null);
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String profile(@ModelAttribute("profile") Profile profile,
-                          @RequestParam("file") MultipartFile file, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("profile") Profile profile,
+                               @RequestParam("file") MultipartFile file, BindingResult bindingResult) {
         if (file != null) {
-            profile.setPhoto(convertFileToByteArray(file));
+            profile.setPhoto(convertMultiPartFileToByteArray(file));
         }
         validator.validate(profile, bindingResult);
 
@@ -78,6 +77,7 @@ public class ProfileController {
 
     }
 
+
     @GetMapping("/profile")
     public String profile() {
         return "profile";
@@ -90,7 +90,7 @@ public class ProfileController {
     }//TODO delete this after js set up
 
 
-    private byte[] convertFileToByteArray(MultipartFile file) {
+    private byte[] convertMultiPartFileToByteArray(MultipartFile file) {
         byte[] photo = null;
         try {
             photo = IOUtils.toByteArray(file.getInputStream());

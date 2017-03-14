@@ -1,45 +1,64 @@
-
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.springframework.org/tags/form">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"/>
     <title>Walkie Talkie</title>
 </head>
 <body>
-<form enctype="multipart/form-data" th:action="@{/registration}" method="post">
-    <table class="center">
 
-        <tr>
-            <td>User Name:</td>
-            <td><input type="text"  name="username"/></td>
-        </tr>
-        <tr>
-            <td>First Name:</td>
-            <td><input type="text" name="firstName"/></td>
-        </tr>
-        <tr>
-            <td>Last Name:</td>
-            <td><input type="text" name="lastName"/></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" name="email"/></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type="text" name="password"/></td>
-        </tr>
-        <tr>
-            <td>Confirm Password:</td>
-            <td><input type="text" name="confirmedPassword"/></td>
-        </tr>
-        <tr>
-            <td>Employee Photo:</td>
-            <td><input type="file" accept=".jpg" name="file"/></td>
-        </tr>
+<form action="#" th:action="@{/registration}" enctype="multipart/form-data" method="post">
+    <h2>Registration</h2>
 
-    </table>
+    <div class="form-group ${status.error ? 'has-error' : ''}">
+        <input type="text" name="username" class="form-control" placeholder="Username"/>
+        <!--   <h4 th:if="${#fields.hasErrors('username')}" th:errors="*{__${username}__}">Title error message</h4>-->
+        <ul>
+            <li th:each="err : ${#fields.errors(username)}" th:text="${err}">Errorrrrrrr</li>
+        </ul>
+
+    </div>
+
+    <div class="form-group ${status.error ? 'has-error' : ''}">
+        <input type="text" name="firstName" class="form-control" placeholder="First Name"/>
+        <ul>
+            <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}">Errorrrrrrr</li>
+        </ul>
+    </div>
+
+    <div class="form-group ${status.error ? 'has-error' : ''}">
+        <input type="text" name="lastName" class="form-control" placeholder="Last Name"/>
+        <ul>
+            <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}">Errorrrrrrr</li>
+        </ul>
+    </div>
+
+    <div class="form-group ${status.error ? 'has-error' : ''}">
+        <input type="text" name="email" class="form-control" placeholder="Email"/>
+        <ul>
+            <li th:each="err : ${#fields.errors('email')}" th:text="${err}">Errorrrrrrr</li>
+        </ul>
+    </div>
+
+    <div class="form-group ${status.error ? 'has-error' : ''}">
+        <input type="text" name="password" class="form-control" placeholder="Password"/>
+        <ul>
+            <li th:each="err : ${#fields.errors('password')}" th:text="${err}">Errorrrrrrr</li>
+        </ul>
+    </div>
+
+    <div class="form-group ${status.error ? 'has-error' : ''}">
+        <input type="text" name="confirmedPassword" class="form-control" placeholder="Confirm your password"/>
+        <ul>
+            <li th:each="err : ${#fields.errors('confirmedPassword')}" th:text="${err}">Errorrrrrrr</li>
+        </ul>
+    </div>
+
+    <div>
+        <input type="file" accept=".jpg" name="file" placeholder="Photo"/>
+    </div>
+
+
     <input type="submit" class="button" id="2" value="Add"/>
 </form>
 </body>

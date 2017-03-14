@@ -2,6 +2,9 @@ package com.mokujin.domain;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Transient;
+
+import java.util.Arrays;
 
 @NodeEntity
 public class Profile {
@@ -13,6 +16,7 @@ public class Profile {
     private String lastName;
     private String email;
     private String password;
+    @Transient
     private String confirmedPassword;
     private byte[] photo;
 
@@ -78,15 +82,5 @@ public class Profile {
         this.photo = photo;
     }
 
-    @Override
-    public String toString() {
-        return "Profile{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+
 }

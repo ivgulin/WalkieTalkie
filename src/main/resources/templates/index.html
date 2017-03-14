@@ -1,21 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Walkie Talkie</title>
 </head>
 <body>
-<!--<div sec:authorize="hasAuthority('USER')">
-    <script>
-        location = "/profile";
-    </script>
-</div>-->
+
 
 
 <form method="POST" th:action="@{/login}" class="form-signin">
     <h2 class="form-heading">Log in</h2>
     <span th:text="${message}"></span>
-    <div class="form-group ${error != null ? 'has-error' : ''}">
+    <div>
 
         <input name="username" type="text" placeholder="Username"
                autofocus="true"/>
@@ -26,22 +22,5 @@
     </div>
 
 </form>
-
-
-<!--<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/j_spring_security_check}" method="post">
-    <div><label> User Name : <input type="text" name="j_username"/> </label></div>
-    <div><label> Password: <input type="password" name="j_password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
-
-<form th:action="@{registration.html}" method="get">
-    <button type="submit" class="button">Registration</button>
-</form>-->
 </body>
 </html>
