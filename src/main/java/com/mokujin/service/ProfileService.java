@@ -20,6 +20,7 @@ public class ProfileService {
 
     public Profile save(Profile profile) {
         profile.setPassword(bCryptPasswordEncoder.encode(profile.getPassword()));
+        System.out.println(profile);
         return profileDAO.save(profile);
     }
 

@@ -8,6 +8,7 @@ import com.mokujin.validator.ProfileValidator;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Arrays;
 
-@RestController("/profile")
+@Controller("/profile")
 public class ProfileController {
     @Autowired
     private ProfileService profileService;
@@ -28,7 +29,13 @@ public class ProfileController {
     private SecurityService securityService;
 
     @GetMapping("/")
-    public String home() {
+    public String home(Model model, String error, String logout){
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
+
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
+
         return "index";
     }
 
@@ -41,31 +48,35 @@ public class ProfileController {
     }
 
     @PostMapping("/registration")
-    public Profile profile(@ModelAttribute("profile") Profile profile,
+    public String profile(@ModelAttribute("profile") Profile profile,
                            @RequestParam("file") MultipartFile file, BindingResult bindingResult) {
         if (file != null) {
             profile.setPhoto(convertFileToByteArray(file));
         }
         validator.validate(profile, bindingResult);
-        System.out.println(profile);//TODO clear this mess up after
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        /*System.out.println(profile);*///TODO clear this mess up after
 
         Profile savedProfile = profileService.save(profile);
-        securityService.autologin(savedProfile.getUserName(), savedProfile.getPassword());
-        return savedProfile;
+        securityService.autologin(savedProfile.getEmail(), savedProfile.getConfirmedPassword());
+        return "profile";
 
     }
 
-
-    @GetMapping("/login")
-    public String login(Model model, String error, String logout){
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
-        return "index";
+    @GetMapping("/profile")
+    public String profile(){
+        return "profile";
     }
+
+    @GetMapping("/profil")
+    @ResponseBody
+    public Profile profil(@RequestParam(value = "id", required = false, defaultValue = "1") Long id) {
+        return profileService.find(id);
+    }//TODO delete this after js set up
 
 
     private byte[] convertFileToByteArray(MultipartFile file) {
@@ -80,9 +91,6 @@ public class ProfileController {
 
 
 
-    @GetMapping("/profile")
-    public Profile profile(@RequestParam(value = "id", required = false, defaultValue = "1") Long id) {
-        return profileService.find(id);
-    }//TODO delete this after js set up
+
 
 }

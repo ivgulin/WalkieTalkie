@@ -1,12 +1,15 @@
+
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.springframework.org/tags/form">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Walkie Talkie</title>
 </head>
 <body>
-<form enctype="multipart/form-data" th:action="@{/add_profile}" method="post">
+<form enctype="multipart/form-data" th:action="@{/registration}" method="post">
     <table class="center">
+
         <tr>
             <td>User Name:</td>
             <td><input type="text"  name="userName"/></td>
@@ -26,6 +29,10 @@
         <tr>
             <td>Password:</td>
             <td><input type="text" name="password"/></td>
+        </tr>
+        <tr>
+            <td>Confirm Password:</td>
+            <td><input type="text" name="confirmedPassword"/></td>
         </tr>
         <tr>
             <td>Employee Photo:</td>

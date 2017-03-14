@@ -26,12 +26,7 @@ public class ProfileDetailService implements UserDetailsService {
         System.out.println(profile);
         Set<GrantedAuthority> roles = new HashSet();
         roles.add(new SimpleGrantedAuthority(RolesEnum.USER.name()));
-        UserDetails userDetails = new User(profile.getEmail(), profile.getPassword(), roles);
-        return userDetails;
+        return new User(profile.getEmail(), profile.getPassword(), roles);
     }
 
-    @Override
-    public String toString() {
-        return "ProfileDetailService{}";
-    }
 }

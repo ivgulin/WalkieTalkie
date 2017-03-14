@@ -18,7 +18,10 @@
     <p><a class="btn btn-lg btn-danger" th:href="@{/logout}" role="button">Выйти</a></p>
 
 </sec:authorize>-->
-<h1>HERE!!</h1>
-<sec:authentication property="principal.username"/>
+<sec:authorize access="isAuthenticated()">
+    <h1>HERE!!</h1>
+    <sec:authentication property="userPrincipal.username"/>
+</sec:authorize>
+
 </body>
 </html>

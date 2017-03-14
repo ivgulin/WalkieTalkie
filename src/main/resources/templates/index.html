@@ -6,7 +6,26 @@
 </head>
 <body>
 
-<div th:if="${param.error}">
+<form method="POST" th:action="@{/login}" class="form-signin">
+    <h2 class="form-heading">Log in</h2>
+    <span th:text="${message}"></span>
+    <div class="form-group ${error != null ? 'has-error' : ''}">
+
+        <input name="username" type="text"  placeholder="Username"
+               autofocus="true"/>
+        <input name="password" type="password"  placeholder="Password"/>
+        <span th:text="${error}"></span>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+        <button type="submit">Log In</button>
+        <h4 class="text-center"><a th:href="@{/registration}">Create an account</a></h4>
+    </div>
+
+</form>
+
+
+
+<!--<div th:if="${param.error}">
     Invalid username and password.
 </div>
 <div th:if="${param.logout}">
@@ -20,6 +39,6 @@
 
 <form th:action="@{registration.html}" method="get">
     <button type="submit" class="button">Registration</button>
-</form>
+</form>-->
 </body>
 </html>
