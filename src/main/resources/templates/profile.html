@@ -6,23 +6,11 @@
 </head>
 <body>
 
-<h2 id="firstName"></h2>
-<h2 id="lastName"></h2>
-<p id="username"></p>
-<p id="email"></p>
+<h2 th:text="${profile.firstName}"></h2>
+<h2 th:text="${profile.lastName}"></h2>
+<p th:text="${profile.username}"></p>
+<p th:text="${profile.email}"></p>
 
 
-<script>
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            myObj = JSON.parse(this.responseText);
-            document.getElementById("demo").innerHTML = myObj.firstName;
-            document.getElementById("demo").innerHTML = myObj.lastName;
-            document.getElementById("demo").innerHTML = myObj.username;
-            document.getElementById("demo").innerHTML = myObj.email;
-        }
-    };
-</script>
 </body>
 </html>

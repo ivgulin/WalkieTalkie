@@ -3,11 +3,14 @@ package com.mokujin.validator;
 
 import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
+import com.mokujin.util.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import static com.mokujin.util.MailUtil.isAddressValid;
 
 @Component
 public class ProfileValidator implements Validator {
@@ -38,7 +41,6 @@ public class ProfileValidator implements Validator {
 
         if ((profile.getUsername().length() < 4 || profile.getUsername().length() > 32) && errors.getFieldError("username") == null) {
             errors.rejectValue("username", "Size", "Username is too short.");
-            ;
         }
 
         if (service.findByUsername(profile.getUsername()) != null) {
@@ -54,7 +56,14 @@ public class ProfileValidator implements Validator {
         }
 
         if (!profile.getConfirmedPassword().equals(profile.getPassword())) {
-            errors.rejectValue("confirmedPassword", "Diff", "Passwords didn't match.");
+            errors.rejectValue("confirmedPassword", "Difference", "Passwords didn't match.");
         }
+
+        //will be commented until end of development
+      /*  if (!isAddressValid(profile.getEmail())) {
+            errors.rejectValue("email", "Existence", "This mail doesn't exists.");
+        }*/
+
     }
+
 }

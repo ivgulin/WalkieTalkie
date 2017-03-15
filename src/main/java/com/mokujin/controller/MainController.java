@@ -4,6 +4,7 @@ package com.mokujin.controller;
 import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
 import com.mokujin.service.SecurityService;
+import com.mokujin.util.MailUtil;
 import com.mokujin.validator.ProfileValidator;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +31,7 @@ public class MainController {
 
     @Autowired
     private SecurityService securityService;
+
 
     @GetMapping
     public String home() {
@@ -69,7 +72,7 @@ public class MainController {
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("profile") Profile profile,
-                               @RequestParam("file") MultipartFile file, BindingResult bindingResult, Model model) {
+                               @RequestParam("file") MultipartFile file, BindingResult bindingResult) {
         if (file != null) {
             profile.setPhoto(convertMultiPartFileToByteArray(file));
         }
@@ -79,15 +82,44 @@ public class MainController {
             return "registration";
         }
 
-        Profile savedProfile = profileService.save(profile);
-        securityService.autologin(savedProfile.getUsername(), savedProfile.getConfirmedPassword());
+        profile = profileService.save(profile);
+        securityService.autologin(profile.getUsername(), profile.getConfirmedPassword());
+        //will be commented until end of development
+        //MailUtil.sendAfterRegistrationMail(profile.getEmail());
         return "redirect:/profile";
-
     }
 
     @GetMapping("/profile")
-    public String profile() {
+    public String profile(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Profile profile = profileService.findByUsername(authentication.getName());
+        model.addAttribute("profile", profile);
         return "profile";
+    }
+
+
+    private Profile setNewProfileProperties(Profile profile) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Profile savedProfile = profileService.findByUsername(authentication.getName());
+        if (profile.getUsername() != null) {
+            savedProfile.setUsername(profile.getUsername());
+        }
+        if (profile.getFirstName() != null) {
+            savedProfile.setFirstName(profile.getFirstName());
+        }
+        if (profile.getLastName() != null) {
+            savedProfile.setLastName(profile.getLastName());
+        }
+        if (profile.getEmail() != null) {
+            savedProfile.setEmail(profile.getEmail());
+        }
+        if (profile.getPassword() != null) {
+            savedProfile.setUsername(profile.getPassword());
+        }
+        if (profile.getPhoto() != null) {
+            savedProfile.setPhoto(profile.getPhoto());
+        }
+        return savedProfile;
     }
 
     private byte[] convertMultiPartFileToByteArray(MultipartFile file) {

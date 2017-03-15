@@ -3,6 +3,8 @@ package com.mokujin.service;
 import com.mokujin.domain.Profile;
 import com.mokujin.repository.ProfileDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,11 +23,6 @@ public class ProfileService {
     public Profile save(Profile profile) {
         profile.setPassword(bCryptPasswordEncoder.encode(profile.getPassword()));
         return profileDAO.save(profile);
-    }
-
-
-    public Profile find(Long id) {
-        return profileDAO.findOne(id);
     }
 
     public Profile findByUsername(String username){
