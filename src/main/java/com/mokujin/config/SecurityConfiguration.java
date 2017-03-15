@@ -26,11 +26,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public Authentication authentication(){
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
