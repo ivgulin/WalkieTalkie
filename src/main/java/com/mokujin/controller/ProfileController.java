@@ -7,13 +7,14 @@ import com.mokujin.service.SecurityService;
 import com.mokujin.validator.ProfileValidator;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller("/profile")
@@ -27,7 +28,8 @@ public class ProfileController {
     @Autowired
     private SecurityService securityService;
 
-
+    @Autowired
+    private Authentication authentication;
 
     @GetMapping("/")
     public String home() {
@@ -41,6 +43,8 @@ public class ProfileController {
 
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
+
+        if (isUserAuthenticated()) return "redirect:/profile";
 
         return "index";
     }
@@ -57,10 +61,12 @@ public class ProfileController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
+        if (isUserAuthenticated()) return "redirect:/profile";
         Profile profile = new Profile();
         model.addAttribute("profile", profile);
         return "registration";
     }
+
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("profile") Profile profile,
@@ -68,7 +74,7 @@ public class ProfileController {
         if (file != null) {
             profile.setPhoto(convertMultiPartFileToByteArray(file));
         }
-       validator.validate(profile, bindingResult);
+        validator.validate(profile, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
@@ -103,5 +109,11 @@ public class ProfileController {
         return photo;
     }
 
+    private boolean isUserAuthenticated() {
+        if (authentication != null && authentication.isAuthenticated()) {
+            return true;
+        }
+        return false;
+    }
 
 }
