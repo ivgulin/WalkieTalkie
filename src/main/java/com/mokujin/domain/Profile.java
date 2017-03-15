@@ -4,13 +4,13 @@ import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Transient;
 
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 
 @NodeEntity
 public class Profile {
     @GraphId
     private Long id;
-
     private String username;
     private String firstName;
     private String lastName;

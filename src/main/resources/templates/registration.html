@@ -7,51 +7,38 @@
 </head>
 <body>
 
-<form action="#" th:action="@{/registration}" enctype="multipart/form-data" method="post">
+<form action="#" th:action="@{/registration}" th:object="${profile}" enctype="multipart/form-data" method="post">
     <h2>Registration</h2>
 
-    <div class="form-group ${status.error ? 'has-error' : ''}">
-        <input type="text" name="username" class="form-control" placeholder="Username"/>
-        <!--   <h4 th:if="${#fields.hasErrors('username')}" th:errors="*{__${username}__}">Title error message</h4>-->
-        <ul>
-            <li th:each="err : ${#fields.errors(username)}" th:text="${err}">Errorrrrrrr</li>
-        </ul>
+    <div th:class="${#fields.hasErrors('username') ? 'form-group has-error has-feedback' : 'form-group has success'}">
+        <input type="text" name="username" id="username" th:field="*{username}"  placeholder="Username"/>
+        <label for="username" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect data</label>
+    </div>
+
+    <div th:class="${#fields.hasErrors('firstName') ? 'form-group has-error has-feedback' : 'form-group has success'}">
+        <input type="text" name="firstName" id="firstName" th:field="*{firstName}" placeholder="First Name"/>
+        <label for="firstName" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Incorrect data</label>
 
     </div>
 
-    <div class="form-group ${status.error ? 'has-error' : ''}">
-        <input type="text" name="firstName" class="form-control" placeholder="First Name"/>
-        <ul>
-            <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}">Errorrrrrrr</li>
-        </ul>
+    <div th:class="${#fields.hasErrors('lastName') ? 'form-group has-error has-feedback' : 'form-group has success'}">
+        <input type="text" name="lastName" id="lastName" th:field="*{lastName}" placeholder="Last Name"/>
+        <label for="lastName" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Incorrect data</label>
     </div>
 
-    <div class="form-group ${status.error ? 'has-error' : ''}">
-        <input type="text" name="lastName" class="form-control" placeholder="Last Name"/>
-        <ul>
-            <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}">Errorrrrrrr</li>
-        </ul>
+    <div th:class="${#fields.hasErrors('email') ? 'form-group has-error has-feedback' : 'form-group has success'}">
+        <input type="text" name="email" id="email" th:field="*{email}"  placeholder="Email"/>
+        <label for="email" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect data</label>
     </div>
 
-    <div class="form-group ${status.error ? 'has-error' : ''}">
-        <input type="text" name="email" class="form-control" placeholder="Email"/>
-        <ul>
-            <li th:each="err : ${#fields.errors('email')}" th:text="${err}">Errorrrrrrr</li>
-        </ul>
+    <div th:class="${#fields.hasErrors('password') ? 'form-group has-error has-feedback' : 'form-group has success'}">
+        <input type="text" name="password" id="password" th:field="*{password}"  placeholder="Password"/>
+        <label for="password" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect data</label>
     </div>
 
-    <div class="form-group ${status.error ? 'has-error' : ''}">
-        <input type="text" name="password" class="form-control" placeholder="Password"/>
-        <ul>
-            <li th:each="err : ${#fields.errors('password')}" th:text="${err}">Errorrrrrrr</li>
-        </ul>
-    </div>
-
-    <div class="form-group ${status.error ? 'has-error' : ''}">
-        <input type="text" name="confirmedPassword" class="form-control" placeholder="Confirm your password"/>
-        <ul>
-            <li th:each="err : ${#fields.errors('confirmedPassword')}" th:text="${err}">Errorrrrrrr</li>
-        </ul>
+    <div th:class="${#fields.hasErrors('confirmedPassword') ? 'form-group has-error has-feedback' : 'form-group has success'}">
+        <input type="text" name="confirmedPassword" id="confirmedPassword" th:field="*{confirmedPassword}"  placeholder="Confirm your password"/>
+        <label for="confirmedPassword" th:if="${#fields.hasErrors('confirmedPassword')}" th:errors="*{confirmedPassword}">Incorrect data</label>
     </div>
 
     <div>

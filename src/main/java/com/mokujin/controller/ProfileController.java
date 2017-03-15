@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller("/profile")
@@ -25,6 +26,8 @@ public class ProfileController {
 
     @Autowired
     private SecurityService securityService;
+
+
 
     @GetMapping("/")
     public String home() {
@@ -61,11 +64,11 @@ public class ProfileController {
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("profile") Profile profile,
-                               @RequestParam("file") MultipartFile file, BindingResult bindingResult) {
+                               @RequestParam("file") MultipartFile file, BindingResult bindingResult, Model model) {
         if (file != null) {
             profile.setPhoto(convertMultiPartFileToByteArray(file));
         }
-        validator.validate(profile, bindingResult);
+       validator.validate(profile, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
