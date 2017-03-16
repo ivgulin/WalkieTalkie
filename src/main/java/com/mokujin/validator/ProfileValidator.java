@@ -59,6 +59,22 @@ public class ProfileValidator implements Validator {
             errors.rejectValue("confirmedPassword", "Difference", "Passwords didn't match.");
         }
 
+        if (profile.getUsername().contains(" ")) {
+            errors.rejectValue("username", "Spaces", "Unacceptable symbol detected(space).");
+        }
+
+        if (profile.getFirstName().contains(" ")) {
+            errors.rejectValue("firstName", "Spaces", "Unacceptable symbol detected(space).");
+        }
+
+        if (profile.getLastName().contains(" ")) {
+            errors.rejectValue("lastName", "Spaces", "Unacceptable symbol detected(space).");
+        }
+
+        if (profile.getPassword().contains(" ")) {
+            errors.rejectValue("password", "Spaces", "Unacceptable symbol detected(space).");
+        }
+
         //will be commented until end of development
       /*  if (!isAddressValid(profile.getEmail())) {
             errors.rejectValue("email", "Existence", "This mail doesn't exists.");

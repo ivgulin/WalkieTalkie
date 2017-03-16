@@ -4,7 +4,6 @@ package com.mokujin.controller;
 import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
 import com.mokujin.service.SecurityService;
-import com.mokujin.util.MailUtil;
 import com.mokujin.validator.ProfileValidator;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -66,6 +64,7 @@ public class MainController {
         if (isUserAuthenticated()) return "redirect:/profile";
         Profile profile = new Profile();
         model.addAttribute("profile", profile);
+        model.addAttribute("file", null);
         return "registration";
     }
 
@@ -97,6 +96,18 @@ public class MainController {
         return "profile";
     }
 
+
+    @PostMapping("/search")
+    public String search(@RequestParam("searchRequest") String searchRequest) {
+        String delimiter = " ";
+        if (searchRequest.contains(delimiter)) {
+            String firstName = searchRequest.substring(0, searchRequest.indexOf(delimiter));
+            int firstIndexAfterDelimiter = (searchRequest.indexOf(delimiter));
+            String lastName = searchRequest.substring(firstIndexAfterDelimiter++);
+
+        }
+        return "profile";
+    }
 
     private Profile setNewProfileProperties(Profile profile) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

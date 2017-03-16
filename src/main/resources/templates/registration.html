@@ -31,19 +31,18 @@
     </div>
 
     <div th:class="${#fields.hasErrors('password') ? 'form-group has-error has-feedback' : 'form-group has success'}">
-        <input type="text" name="password" id="password" th:field="*{password}"  placeholder="Password"/>
+        <input type="password" name="password" id="password" th:field="*{password}"  placeholder="Password"/>
         <label for="password" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect data</label>
     </div>
 
     <div th:class="${#fields.hasErrors('confirmedPassword') ? 'form-group has-error has-feedback' : 'form-group has success'}">
-        <input type="text" name="confirmedPassword" id="confirmedPassword" th:field="*{confirmedPassword}"  placeholder="Confirm your password"/>
+        <input type="password" name="confirmedPassword" id="confirmedPassword" th:field="*{confirmedPassword}"  placeholder="Confirm your password"/>
         <label for="confirmedPassword" th:if="${#fields.hasErrors('confirmedPassword')}" th:errors="*{confirmedPassword}">Incorrect data</label>
     </div>
 
     <div>
-        <input type="file" accept=".jpg" name="file" placeholder="Photo"/>
+        <input type="file" id="file" th:object="${file}" accept=".jpg" name="file" placeholder="Photo"/>
     </div>
-
 
     <input type="submit" class="button" id="2" value="Add"/>
 </form>

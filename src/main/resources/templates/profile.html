@@ -11,6 +11,20 @@
 <p th:text="${profile.username}"></p>
 <p th:text="${profile.email}"></p>
 
+<img th:src="@{/img/photo/(username=${profile.username})}" height="100" width="100"/>
+
+
+
+<form method="POST" th:action="@{/search}" class="form-signin">
+    <div class="search-bar">
+        <input type="text" class="sfield" name="searchRequest" maxlength="30" placeholder="Search.."/>
+        <button type="submit">Search</button>
+        <span th:text="${message}"></span>
+        <!--<input type="image" class="searchbutton" name="search" src="http://www.spheretekk.com/bc/images/search-icon.gif" alt="Search">-->
+    </div>
+
+
+</form>
 
 </body>
 </html>

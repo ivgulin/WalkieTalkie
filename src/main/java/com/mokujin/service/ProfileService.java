@@ -25,14 +25,24 @@ public class ProfileService {
         return profileDAO.save(profile);
     }
 
-    public Profile findByUsername(String username){
+    public Profile findByUsername(String username) {
         return profileDAO.findByUsername(username);
     }
 
-    public Profile findByEmail(String email){
+    public Profile findByEmail(String email) {
         return profileDAO.findByEmail(email);
     }
 
+    public Profile findByFullName(String firstName, String lastname) {
+        return profileDAO.findByFullName(firstName, lastname);
+    }
 
+    public Profile findByFirstName(String firstName){
+        return profileDAO.findByFirstName(firstName);
+    }
+    
+    public Profile findByLastName(String lastName){
+        return profileDAO.findByLastName(lastName);
+    }
 
 }
