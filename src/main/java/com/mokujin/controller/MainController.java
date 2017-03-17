@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 @RequestMapping("/")
@@ -98,15 +98,36 @@ public class MainController {
 
 
     @PostMapping("/search")
-    public String search(@RequestParam("searchRequest") String searchRequest) {
+    @ResponseBody
+    public Set<Profile> search(@RequestParam("searchRequest") String searchRequest, Model model) {
+        Set<Profile> profiles = new HashSet<>();
         String delimiter = " ";
         if (searchRequest.contains(delimiter)) {
+            Set<Profile> byFullName;
             String firstName = searchRequest.substring(0, searchRequest.indexOf(delimiter));
             int firstIndexAfterDelimiter = (searchRequest.indexOf(delimiter));
             String lastName = searchRequest.substring(firstIndexAfterDelimiter++);
-
+            byFullName = profileService.findByFullName(firstName, lastName);
+            profiles = byFullName;
+            return profiles;
         }
-        return "profile";
+
+
+        Set<Profile> byFirstName = profileService.findByFirstName(searchRequest);
+        Set<Profile> byLastName = profileService.findByLastName(searchRequest);
+        Profile byUsername = profileService.findByUsername(searchRequest);
+
+        if (byUsername != null) {
+            profiles.add(byUsername);
+        }
+        if (!byFirstName.isEmpty()) {
+            byFirstName.forEach(profiles::add);
+        }
+        if (!byLastName.isEmpty()) {
+            byLastName.forEach(profiles::add);
+        }
+
+        return profiles;
     }
 
     private Profile setNewProfileProperties(Profile profile) {

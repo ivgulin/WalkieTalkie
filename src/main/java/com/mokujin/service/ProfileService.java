@@ -9,6 +9,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 @Service
 @Transactional
 public class ProfileService {
@@ -33,15 +37,15 @@ public class ProfileService {
         return profileDAO.findByEmail(email);
     }
 
-    public Profile findByFullName(String firstName, String lastname) {
+    public HashSet<Profile> findByFullName(String firstName, String lastname) {
         return profileDAO.findByFullName(firstName, lastname);
     }
 
-    public Profile findByFirstName(String firstName){
+    public HashSet<Profile> findByFirstName(String firstName){
         return profileDAO.findByFirstName(firstName);
     }
-    
-    public Profile findByLastName(String lastName){
+
+    public HashSet<Profile> findByLastName(String lastName){
         return profileDAO.findByLastName(lastName);
     }
 

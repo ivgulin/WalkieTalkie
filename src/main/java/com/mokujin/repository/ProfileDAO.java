@@ -6,6 +6,10 @@ import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 
 public interface ProfileDAO extends GraphRepository<Profile> {
 
@@ -22,15 +26,15 @@ public interface ProfileDAO extends GraphRepository<Profile> {
     @Query("MATCH (profile:Profile)\n" +
             "    WHERE profile.firstName = {firstName} AND profile.lastName={lastName}\n" +
             "        RETURN profile")
-    Profile findByFullName(@Param("firstName") String firstName, @Param("lastName") String lastName);
+    HashSet<Profile> findByFullName(@Param("firstName") String firstName, @Param("lastName") String lastName);
 
     @Query("MATCH (profile:Profile)\n" +
             "    WHERE profile.firstName = {firstName}\n" +
             "        RETURN profile")
-    Profile findByFirstName(@Param("firstName") String firstName);
+    HashSet<Profile> findByFirstName(@Param("firstName") String firstName);
 
     @Query("MATCH (profile:Profile)\n" +
             "    WHERE profile.lastName = {lastName}\n" +
             "        RETURN profile")
-    Profile findByLastName(@Param("lastName") String firstName);
+    HashSet<Profile> findByLastName(@Param("lastName") String firstName);
 }

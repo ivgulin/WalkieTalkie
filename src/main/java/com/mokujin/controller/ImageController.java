@@ -25,7 +25,7 @@ public class ImageController {
     private ProfileService profileService;
 
     @GetMapping(value = "/photo")
-    public void showPhoto(@RequestParam("username") String username, HttpServletResponse response, HttpServletRequest request)
+    public void showPhoto(@RequestParam("username") String username, HttpServletResponse response)
             throws ServletException, IOException {
         Profile profile = profileService.findByUsername(username);
         response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
