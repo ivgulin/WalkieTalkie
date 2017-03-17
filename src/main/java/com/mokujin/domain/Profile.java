@@ -2,10 +2,11 @@ package com.mokujin.domain;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.Transient;
 
-import javax.validation.constraints.NotNull;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 @NodeEntity
 public class Profile {
@@ -19,7 +20,8 @@ public class Profile {
     @Transient
     private String confirmedPassword;
     private byte[] photo;
-
+    @Relationship(type = "BE_FRIEND_WITH")
+    private List<Profile> friends = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -69,10 +71,13 @@ public class Profile {
         this.confirmedPassword = confirmedPassword;
     }
 
-    public Long getId() {
-        return id;
+    public List<Profile> getFriends() {
+        return friends;
     }
 
+    public void setFriends(List<Profile> friends) {
+        this.friends = friends;
+    }
 
     public byte[] getPhoto() {
         return photo;

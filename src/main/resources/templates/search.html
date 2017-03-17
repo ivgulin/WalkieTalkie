@@ -13,24 +13,31 @@
         <li id="lastName" th:text="${profile.lastName}"></li>
         <li id="username" th:text="${profile.username}"></li>
         <li>
-            <button type="submit" id="add">Add to friends</button>
+            <button type="submit" onclick="sendRequest()" id="add">Add to friends</button>
         </li>
         <li id="message"></li>
     </ul>
 </form>
 
-<!--<script>
-    $(document).ready(function () {
-        $("#add").submit(function () {
-            var url = "search" + document.getElementById("username");
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: $("#add").serialize(),
-                success: window.alert("success")
-            })
-        })
-    })
-</script>-->
+<script>
+    function sendRequest() {
+        $("#firstName").hide();
+
+        /*inputText = $("#username").val();
+        $.ajax({
+            url: "add",
+            type: "GET",
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            data: ({
+                text: inputText
+            }),
+            success: function () {
+                $("#message").text("Success!");
+            }
+        })*/
+    }
+</script>
 </body>
 </html>

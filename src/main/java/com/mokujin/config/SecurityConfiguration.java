@@ -42,8 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .formLogin()
                 .loginPage("/login")
-                .permitAll();
-
+                .permitAll().successForwardUrl("/profile").defaultSuccessUrl("/profile", true);
         http
                 .logout()
                 .permitAll()

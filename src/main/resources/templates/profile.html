@@ -15,16 +15,24 @@
 <img th:src="@{/img/photo/(username=${profile.username})}" height="100" width="100"/>
 
 
-<form th:action="@{/search}" method="post" id="search-form">
+<form th:action="@{/search}" method="get" id="search-form">
     <div class="search-bar">
-        <input type="text" id="user" name="searchRequest" maxlength="30" placeholder="Search.."/>
+        <input type="text" id="user" name="find" maxlength="30" placeholder="Search.."/>
         <button type="submit" id="search">Search</button>
-        <span th:text="${message}"></span>
         <!--<input type="image" class="searchbutton" name="search" src="http://www.spheretekk.com/bc/images/search-icon.gif" alt="Search">-->
     </div>
 </form>
 
+<h2>List of Friends:</h2>
+<ul th:each="friend,iterationStatus  : ${profile.friends}">
+
+    <li id="firstName" th:text="${friend.firstName}"></li>
+    <li id="lastName" th:text="${friend.lastName}"></li>
+    <li id="username" th:text="${friend.username}"></li>
+    <li><img th:src="@{/img/photo/(username=${friend.username})}" height="100" width="100"/></li>
+</ul>
 
 
+<a th:href="@{/logout}">Logout</a>
 </body>
 </html>

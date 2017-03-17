@@ -55,4 +55,8 @@ public class ProfileService {
         return profileDAO.findByLastName(lastName);
     }
 
+    public Profile addFriend(String username, String friend){
+        return profileDAO.addToFriends(username, friend);
+    }
+
 }

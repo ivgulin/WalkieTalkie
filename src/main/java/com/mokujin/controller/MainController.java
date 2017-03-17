@@ -9,12 +9,15 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
@@ -38,13 +41,12 @@ public class MainController {
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
+        if (isUserAuthenticated()) return "redirect:/profile";
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
 
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
-
-        if (isUserAuthenticated()) return "redirect:/profile";
 
         return "index";
     }
@@ -97,9 +99,8 @@ public class MainController {
     }
 
 
-
-    @PostMapping("/search")
-    public String search(@RequestParam("searchRequest") String searchRequest, Model model) {
+    @GetMapping("/search")
+    public String search(@RequestParam("find") String searchRequest, Model model) {
         Set<Profile> profiles = new HashSet<>();
         if (searchRequest.contains(" ")) {
             model.addAttribute("profiles", profileService.findByFullName(searchRequest));
@@ -120,6 +121,22 @@ public class MainController {
         }
         model.addAttribute("profiles", profiles);
         return "search";
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login?logout";
+    }
+
+    @PostMapping("/add")
+    public void addFriend(@RequestParam("username") String friend) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        profileService.addFriend(username, friend);
     }
 
     private Profile setNewProfileProperties(Profile profile) {

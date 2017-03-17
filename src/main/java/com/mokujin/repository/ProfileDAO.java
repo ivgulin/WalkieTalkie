@@ -37,4 +37,11 @@ public interface ProfileDAO extends GraphRepository<Profile> {
             "    WHERE profile.lastName = {lastName}\n" +
             "        RETURN profile")
     HashSet<Profile> findByLastName(@Param("lastName") String firstName);
+
+
+    @Query("MATCH (user:Profile),(friend:Profile)\n" +
+            "CREATE  \n" +
+            "\t(user)-[BE_FRIEND_WITH]->(friend)\n"+
+            "RETURN user")
+    Profile addToFriends(@Param("user") String username, @Param("friend") String friendUsername);
 }
