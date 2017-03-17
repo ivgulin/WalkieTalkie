@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <script type="text/javascript" src="../public/js/jquery-3.2.0.min.js"></script>
+    <script type="text/javascript" src="../public/js/jquery-3.2.0.min.js" th:src="@{../public/js/jquery-3.2.0.min.js}"></script>
     <title>Walkie Talkie</title>
 </head>
 <body>
 
-<h2 th:text="${profile.firstName}"></h2>
+<h2 th:id="hideMe" th:text="${profile.firstName}">lol</h2>
 <h2 th:text="${profile.lastName}"></h2>
 <p th:text="${profile.username}"></p>
 <p th:text="${profile.email}"></p>
@@ -24,13 +24,15 @@
 </form>
 
 <h2>List of Friends:</h2>
-<ul th:each="friend,iterationStatus  : ${profile.friends}">
+<ul th:each="friend,iterationStatus  : ${friends}">
 
     <li id="firstName" th:text="${friend.firstName}"></li>
     <li id="lastName" th:text="${friend.lastName}"></li>
     <li id="username" th:text="${friend.username}"></li>
-    <li><img th:src="@{/img/photo/(username=${friend.username})}" height="100" width="100"/></li>
+    <li><img th:src="@{/img/photo/(username=${friend.username})}" height="50" width="50"/></li>
 </ul>
+
+<button id="push">Push</button>
 
 
 <a th:href="@{/logout}">Logout</a>

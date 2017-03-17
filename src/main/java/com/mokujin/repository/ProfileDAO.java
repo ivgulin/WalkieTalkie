@@ -40,8 +40,8 @@ public interface ProfileDAO extends GraphRepository<Profile> {
 
 
     @Query("MATCH (user:Profile),(friend:Profile)\n" +
-            "CREATE  \n" +
-            "\t(user)-[BE_FRIEND_WITH]->(friend)\n"+
+            "WHERE user.username = {user} AND friend.username = {friend}\n" +
+            "CREATE (user)-[relationship:BE_FRIEND_WITH]->(friend)\n"+
             "RETURN user")
     Profile addToFriends(@Param("user") String username, @Param("friend") String friendUsername);
 }

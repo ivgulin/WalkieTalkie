@@ -40,7 +40,6 @@ public class ProfileService {
 
     public HashSet<Profile> findByFullName(String fullName) {
         String delimiter = " ";
-        Set<Profile> byFullName;
             String firstName = fullName.substring(0, fullName.indexOf(delimiter));
             int firstIndexAfterDelimiter = (fullName.indexOf(delimiter));
             String lastName = fullName.substring(firstIndexAfterDelimiter++);
