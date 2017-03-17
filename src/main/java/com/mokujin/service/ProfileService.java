@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -37,8 +38,13 @@ public class ProfileService {
         return profileDAO.findByEmail(email);
     }
 
-    public HashSet<Profile> findByFullName(String firstName, String lastname) {
-        return profileDAO.findByFullName(firstName, lastname);
+    public HashSet<Profile> findByFullName(String fullName) {
+        String delimiter = " ";
+        Set<Profile> byFullName;
+            String firstName = fullName.substring(0, fullName.indexOf(delimiter));
+            int firstIndexAfterDelimiter = (fullName.indexOf(delimiter));
+            String lastName = fullName.substring(firstIndexAfterDelimiter++);
+        return profileDAO.findByFullName(firstName, lastName);
     }
 
     public HashSet<Profile> findByFirstName(String firstName){

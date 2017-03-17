@@ -24,40 +24,7 @@
     </div>
 </form>
 
-<ul th:each="profile,iterationStatus  : ${profiles}">
-    <li id="firstName" th:text="${profile.firstName}"></li>
-    <li id="lastName" th:text="${profile.lastName}"></li>
-    <li id="username" th:text="${profile.firstName}"></li>
-</ul>
 
-<script>
-    var persons = [
-        { "name": "John Doe", "address": "Main Street 1" },
-        { "name": "Jane Doe", "address": "Baker Street 1" },
-        { "name": "Jack Doe", "address": "Church Street 1" }
-    ];
-    $(document).ready(function() {
-        var table = $('<table/>').appendTo($('#somediv'));
-        $(persons).each(function(i, person) {
-            $('<tr/>').appendTo(table)
-                .append($('<td/>').text(person.name))
-                .append($('<td/>').text(person.address));
-        });
-    });
-</script>
-
-
-<script id="">
-    $(document).ready(function () {
-        $("#search-form").submit(function () {
-            $.ajax({
-                url: "search",
-                type: "POST",
-                data: $("#search-form").serialize()
-            })
-        })
-    })
-</script>
 
 </body>
 </html>

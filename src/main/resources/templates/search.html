@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Walkie Talkie</title>
+</head>
+<body>
+<h1>Result of searching:</h1>
+<form id="addFriend">
+    <ul th:each="profile,iterationStatus  : ${profiles}">
+
+        <li id="firstName" th:text="${profile.firstName}"></li>
+        <li id="lastName" th:text="${profile.lastName}"></li>
+        <li id="username" th:text="${profile.username}"></li>
+        <li>
+            <button type="submit" id="add">Add to friends</button>
+        </li>
+        <li id="message"></li>
+    </ul>
+</form>
+
+<!--<script>
+    $(document).ready(function () {
+        $("#add").submit(function () {
+            var url = "search" + document.getElementById("username");
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: $("#add").serialize(),
+                success: window.alert("success")
+            })
+        })
+    })
+</script>-->
+</body>
+</html>

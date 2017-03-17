@@ -97,22 +97,14 @@ public class MainController {
     }
 
 
+
     @PostMapping("/search")
-    @ResponseBody
-    public Set<Profile> search(@RequestParam("searchRequest") String searchRequest, Model model) {
+    public String search(@RequestParam("searchRequest") String searchRequest, Model model) {
         Set<Profile> profiles = new HashSet<>();
-        String delimiter = " ";
-        if (searchRequest.contains(delimiter)) {
-            Set<Profile> byFullName;
-            String firstName = searchRequest.substring(0, searchRequest.indexOf(delimiter));
-            int firstIndexAfterDelimiter = (searchRequest.indexOf(delimiter));
-            String lastName = searchRequest.substring(firstIndexAfterDelimiter++);
-            byFullName = profileService.findByFullName(firstName, lastName);
-            profiles = byFullName;
-            return profiles;
+        if (searchRequest.contains(" ")) {
+            model.addAttribute("profiles", profileService.findByFullName(searchRequest));
+            return "search";
         }
-
-
         Set<Profile> byFirstName = profileService.findByFirstName(searchRequest);
         Set<Profile> byLastName = profileService.findByLastName(searchRequest);
         Profile byUsername = profileService.findByUsername(searchRequest);
@@ -126,8 +118,8 @@ public class MainController {
         if (!byLastName.isEmpty()) {
             byLastName.forEach(profiles::add);
         }
-
-        return profiles;
+        model.addAttribute("profiles", profiles);
+        return "search";
     }
 
     private Profile setNewProfileProperties(Profile profile) {
