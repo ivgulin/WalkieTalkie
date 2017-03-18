@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -27,7 +28,10 @@ public class ProfileService {
 
     public Profile findByUsername(String username) {
         Profile profile = profileRepository.findByUsername(username);
-        profile.setFriends(profileRepository.findFriends(username));
+        Set<Profile> friends = profileRepository.findFriends(username);
+        if (friends.size()!=0) {
+            profile.setFriends(friends);
+        }
         return profile;
     }
 

@@ -8,11 +8,14 @@ import java.util.Date;
 @NodeEntity
 public class ChatMessageModel {
     @GraphId
-    private String id;
+    private Long id;
 
     private String text;
     private String author;
     private Date createDate;
+
+    public ChatMessageModel() {
+    }
 
     public ChatMessageModel(String text, String author, Date createDate) {
         this.text = text;
@@ -42,5 +45,14 @@ public class ChatMessageModel {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    @Override
+    public String toString() {
+        return "ChatMessageModel{" +
+                "text='" + text + '\'' +
+                ", author='" + author + '\'' +
+                ", createDate=" + createDate +
+                '}';
     }
 }

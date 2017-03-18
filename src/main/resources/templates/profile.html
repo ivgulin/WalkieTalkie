@@ -2,12 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <script type="text/javascript" src="../public/js/jquery-3.2.0.min.js" th:src="@{../public/js/jquery-3.2.0.min.js}"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <title>Walkie Talkie</title>
 </head>
 <body>
 
-<h2 th:id="hideMe" th:text="${profile.firstName}">lol</h2>
+<h2 th:id="username" th:text="${profile.firstName}">lol</h2>
 <h2 th:text="${profile.lastName}"></h2>
 <p th:text="${profile.username}"></p>
 <p th:text="${profile.email}"></p>
@@ -30,9 +32,12 @@
     <li id="lastName" th:text="${friend.lastName}"></li>
     <li id="username" th:text="${friend.username}"></li>
     <li><img th:src="@{/img/photo/(username=${friend.username})}" height="50" width="50"/></li>
+    <li>
+        <form th:action="@{/chat}" method="get">
+            <button type="submit">Chat</button>
+        </form>
+    </li>
 </ul>
-
-<button id="push">Push</button>
 
 
 <a th:href="@{/logout}">Logout</a>
