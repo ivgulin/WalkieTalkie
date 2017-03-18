@@ -5,13 +5,15 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.Transient;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NodeEntity
 public class Profile {
     @GraphId
     private Long id;
+
     private String username;
     private String firstName;
     private String lastName;
@@ -20,8 +22,8 @@ public class Profile {
     @Transient
     private String confirmedPassword;
     private byte[] photo;
-    @Relationship(type = "BE_FRIEND_WITH")
-    private List<Profile> friends = new ArrayList<>();
+    @Relationship(type = "BE_FRIEND_WITH",direction = Relationship.OUTGOING)
+    private Set<Profile> friends = new HashSet<>();
 
     public String getUsername() {
         return username;
@@ -71,11 +73,15 @@ public class Profile {
         this.confirmedPassword = confirmedPassword;
     }
 
-    public List<Profile> getFriends() {
+    public Set<Profile> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<Profile> friends) {
+    public void addFriend(Profile friend) {
+            this.friends.add(friend);
+    }
+
+    public void setFriends(Set<Profile> friends) {
         this.friends = friends;
     }
 

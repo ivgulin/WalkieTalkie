@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public interface ProfileDAO extends GraphRepository<Profile> {
@@ -39,9 +40,7 @@ public interface ProfileDAO extends GraphRepository<Profile> {
     HashSet<Profile> findByLastName(@Param("lastName") String firstName);
 
 
-    @Query("MATCH (user:Profile),(friend:Profile)\n" +
-            "WHERE user.username = {user} AND friend.username = {friend}\n" +
-            "CREATE (user)-[relationship:BE_FRIEND_WITH]->(friend)\n"+
-            "RETURN user")
-    Profile addToFriends(@Param("user") String username, @Param("friend") String friendUsername);
+    @Query("MATCH (profile:Profile)-[:BE_FRIEND_WITH]-(friends)\n" +
+            "WHERE profile.username = {username} RETURN  friends")
+    Set<Profile> findFriends(@Param("username") String username);
 }

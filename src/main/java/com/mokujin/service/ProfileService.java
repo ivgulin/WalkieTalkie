@@ -3,15 +3,11 @@ package com.mokujin.service;
 import com.mokujin.domain.Profile;
 import com.mokujin.repository.ProfileDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,7 +18,7 @@ public class ProfileService {
     private ProfileDAO profileDAO;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     public Profile save(Profile profile) {
@@ -31,11 +27,14 @@ public class ProfileService {
     }
 
     public Profile findByUsername(String username) {
-        return profileDAO.findByUsername(username);
+        Profile profile = profileDAO.findByUsername(username);
+        profile.setFriends(profileDAO.findFriends(username));
+        return profile;
     }
 
     public Profile findByEmail(String email) {
         return profileDAO.findByEmail(email);
+
     }
 
     public HashSet<Profile> findByFullName(String fullName) {
@@ -55,7 +54,9 @@ public class ProfileService {
     }
 
     public Profile addFriend(String username, String friend){
-        return profileDAO.addToFriends(username, friend);
+        Profile profile = profileDAO.findByUsername(username);
+        profile.addFriend(profileDAO.findByUsername(friend));
+        return profileDAO.save(profile);
     }
 
 }

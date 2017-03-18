@@ -95,9 +95,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Profile profile = profileService.findByUsername(authentication.getName());
         model.addAttribute("profile", profile);
-        List<Profile> friends = profile.getFriends();
-        System.out.println(friends.toString());
-        model.addAttribute("friends", friends);
+        model.addAttribute("friends", profile.getFriends());
         return "profile";
     }
 
