@@ -23,7 +23,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/chat")
-public class ChatMessageController {
+public class ChatController {
 
     private String username;
 
@@ -35,14 +35,14 @@ public class ChatMessageController {
     @Autowired
     private ProfileService profileService;
 
-    @RequestMapping
+    @GetMapping
     public String chat( Model model){
         model.addAttribute("profile", profileService.findByUsername(username));
         model.addAttribute("friend", profileService.findByUsername(friendName));
         return "chat";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public String chat(@RequestParam("username")String friendName){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         this.username = authentication.getName();
@@ -50,7 +50,7 @@ public class ChatMessageController {
         return "redirect:/chat";
     }
 
-    @RequestMapping(value = "/messages", method = RequestMethod.POST)
+    @PostMapping("/messages")
     @MessageMapping("/newMessage")
     @SendTo("/topic/newMessage")
     public ChatMessage save(ChatMessageModel chatMessageModel) {
@@ -61,7 +61,7 @@ public class ChatMessageController {
         return new ChatMessage(chatMessageModelList.toString());
     }
 
-    @RequestMapping(value = "/messages", method = RequestMethod.GET)
+    @GetMapping("/messages")
     public HttpEntity list() {
         List<ChatMessageModel> chatMessageModelList = chatMessageRepository.getDialogue(username,friendName);
         return new ResponseEntity(chatMessageModelList, HttpStatus.OK);
