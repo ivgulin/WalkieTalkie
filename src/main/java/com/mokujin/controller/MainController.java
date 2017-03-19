@@ -96,6 +96,8 @@ public class MainController {
         Profile profile = profileService.findByUsername(authentication.getName());
         model.addAttribute("profile", profile);
         model.addAttribute("friends", profile.getFriends());
+        model.addAttribute("insideFriendshipRequests", profile.getInsideFriendShipRequests());
+        model.addAttribute("outsideFriendShipRequests", profile.getOutsideFriendShipRequests());
         return "profile";
     }
 
@@ -134,10 +136,18 @@ public class MainController {
     }
 
     @PostMapping("/add")
-    public String addFriend(@RequestParam("username") String friend) {
+    public String addFriend(@RequestParam("username") String friendName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        profileService.addFriend(username, friend);
+        profileService.sendFriendshipRequest(username, friendName);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/accept")
+    public String acceptFriendship(@RequestParam("username") String friendName) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        profileService.acceptFriendship(username, friendName);
         return "redirect:/profile";
     }
 

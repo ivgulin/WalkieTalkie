@@ -27,16 +27,35 @@
 
 <h2>List of Friends:</h2>
 <ul th:each="friend,iterationStatus  : ${friends}">
-
+    <li><img th:src="@{/img/photo/(username=${friend.username})}" height="50" width="50"/></li>
     <li id="firstName" th:text="${friend.firstName}"></li>
     <li id="lastName" th:text="${friend.lastName}"></li>
-    <li id="username" th:text="${friend.username}"></li>
-    <li><img th:src="@{/img/photo/(username=${friend.username})}" height="50" width="50"/></li>
-    <li>
-        <form th:action="@{/chat}" method="get">
+    <li id="username" th:name="username" th:text="${friend.username}"></li>
+    <form th:action="@{/chat/(username=${friend.username})}" method="post">
+        <li>
             <button type="submit">Chat</button>
-        </form>
-    </li>
+        </li>
+    </form>
+</ul>
+<h2>Requests by me</h2>
+<ul th:each="receiver,iterationStatus  : ${insideFriendshipRequests}">
+    <li><img th:src="@{/img/photo/(username=${receiver.username})}" height="50" width="50"/></li>
+    <li id="firstName" th:text="${receiver.firstName}"></li>
+    <li id="lastName" th:text="${receiver.lastName}"></li>
+    <li id="username" th:name="username" th:text="${receiver.username}"></li>
+</ul>
+
+<h2>Requests by others</h2>
+<ul th:each="asker,iterationStatus  : ${outsideFriendShipRequests}">
+    <li><img th:src="@{/img/photo/(username=${asker.username})}" height="50" width="50"/></li>
+    <li id="firstName" th:text="${asker.firstName}"></li>
+    <li id="lastName" th:text="${asker.lastName}"></li>
+    <li id="username" th:name="username" th:text="${asker.username}"></li>
+    <form th:action="@{/accept/(username=${asker.username})}" method="post">
+        <li>
+            <button type="submit">Accept</button>
+        </li>
+    </form>
 </ul>
 
 

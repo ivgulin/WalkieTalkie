@@ -29,8 +29,17 @@ public class ProfileService {
     public Profile findByUsername(String username) {
         Profile profile = profileRepository.findByUsername(username);
         Set<Profile> friends = profileRepository.findFriends(username);
-        if (friends.size()!=0) {
+        Set<Profile> insideRequests = profileRepository.findInsideRequests(username);
+        Set<Profile> outsideRequests = profileRepository.findOutsideRequests(username);
+
+        if (friends.size() != 0) {
             profile.setFriends(friends);
+        }
+        if (insideRequests.size() != 0) {
+            profile.setInsideFriendShipRequests(insideRequests);
+        }
+        if (outsideRequests.size() != 0) {
+            profile.setOutsideFriendShipRequests(outsideRequests);
         }
         return profile;
     }
@@ -42,24 +51,35 @@ public class ProfileService {
 
     public HashSet<Profile> findByFullName(String fullName) {
         String delimiter = " ";
-            String firstName = fullName.substring(0, fullName.indexOf(delimiter));
-            int firstIndexAfterDelimiter = (fullName.indexOf(delimiter));
-            String lastName = fullName.substring(firstIndexAfterDelimiter++);
+        String firstName = fullName.substring(0, fullName.indexOf(delimiter));
+        int firstIndexAfterDelimiter = (fullName.indexOf(delimiter));
+        String lastName = fullName.substring(firstIndexAfterDelimiter++);
         return profileRepository.findByFullName(firstName, lastName);
     }
 
-    public HashSet<Profile> findByFirstName(String firstName){
+    public HashSet<Profile> findByFirstName(String firstName) {
         return profileRepository.findByFirstName(firstName);
     }
 
-    public HashSet<Profile> findByLastName(String lastName){
+    public HashSet<Profile> findByLastName(String lastName) {
         return profileRepository.findByLastName(lastName);
     }
 
-    public Profile addFriend(String username, String friend){
+    public void sendFriendshipRequest(String username, String friendUsername) {
         Profile profile = profileRepository.findByUsername(username);
-        profile.addFriend(profileRepository.findByUsername(friend));
-        return profileRepository.save(profile);
+        Profile friendProfile = profileRepository.findByUsername(friendUsername);
+        profile.setInsideFriendshipRequest(friendProfile);
+        friendProfile.setOutsideFriendshipRequest(profile);
+        profileRepository.save(profile);
+        profileRepository.save(friendProfile);
+    }
+
+    public void acceptFriendship(String username, String friendUsername) {
+        profileRepository.deleteInsideRequests(friendUsername, username);
+        profileRepository.deleteOutsideRequests(username, friendUsername);
+        Profile profile = profileRepository.findByUsername(username);
+        profile.addFriend(profileRepository.findByUsername(friendUsername));
+        profileRepository.save(profile);
     }
 
 }

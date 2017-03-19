@@ -2,11 +2,9 @@ package com.mokujin.domain;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.Transient;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @NodeEntity
@@ -22,8 +20,11 @@ public class Profile {
     @Transient
     private String confirmedPassword;
     private byte[] photo;
-    @Relationship(type = "BE_FRIEND_WITH",direction = Relationship.OUTGOING)
     private Set<Profile> friends = new HashSet<>();
+
+    private Set<Profile> outsideFriendShipRequests = new HashSet<>();
+    private Set<Profile> insideFriendShipRequests = new HashSet<>();
+
 
     public String getUsername() {
         return username;
@@ -93,5 +94,27 @@ public class Profile {
         this.photo = photo;
     }
 
+    public Set<Profile> getOutsideFriendShipRequests() {
+        return outsideFriendShipRequests;
+    }
 
+    public void setOutsideFriendShipRequests(Set<Profile> outsideFriendShipRequests) {
+        this.outsideFriendShipRequests = outsideFriendShipRequests;
+    }
+
+    public void setOutsideFriendshipRequest(Profile profile){
+        outsideFriendShipRequests.add(profile);
+    }
+
+    public Set<Profile> getInsideFriendShipRequests() {
+        return insideFriendShipRequests;
+    }
+
+    public void setInsideFriendShipRequests(Set<Profile> insideFriendShipRequests) {
+        this.insideFriendShipRequests = insideFriendShipRequests;
+    }
+
+    public void setInsideFriendshipRequest(Profile profile){
+        insideFriendShipRequests.add(profile);
+    }
 }

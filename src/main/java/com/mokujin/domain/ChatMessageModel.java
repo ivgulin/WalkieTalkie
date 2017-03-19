@@ -13,14 +13,16 @@ public class ChatMessageModel {
     private String text;
     private String author;
     private Date createDate;
+    private String receiver;
 
     public ChatMessageModel() {
     }
 
-    public ChatMessageModel(String text, String author, Date createDate) {
+    public ChatMessageModel(String text, String author, Date createDate, String receiver) {
         this.text = text;
         this.author = author;
         this.createDate = createDate;
+        this.receiver = receiver;
     }
 
     public String getText() {
@@ -47,12 +49,11 @@ public class ChatMessageModel {
         this.createDate = createDate;
     }
 
-    @Override
-    public String toString() {
-        return "ChatMessageModel{" +
-                "text='" + text + '\'' +
-                ", author='" + author + '\'' +
-                ", createDate=" + createDate +
-                '}';
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 }

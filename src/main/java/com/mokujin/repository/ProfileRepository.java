@@ -40,7 +40,25 @@ public interface ProfileRepository extends GraphRepository<Profile> {
     HashSet<Profile> findByLastName(@Param("lastName") String firstName);
 
 
-    @Query("MATCH (profile:Profile)-[:BE_FRIEND_WITH]-(friends)\n" +
+    @Query("MATCH (profile:Profile)<-[:FRIENDS]->(friends)\n" +
             "WHERE profile.username = {username} RETURN  friends")
     Set<Profile> findFriends(@Param("username") String username);
+
+    @Query("MATCH (profile:Profile)-[:OUTSIDE_FRIEND_SHIP_REQUESTS]->(users)\n" +
+            "WHERE profile.username = {username} RETURN  users")
+    Set<Profile> findOutsideRequests(@Param("username") String username);
+
+    @Query("MATCH (profile:Profile)-[:INSIDE_FRIEND_SHIP_REQUESTS]->(users)\n" +
+            "WHERE profile.username = {username} RETURN  users")
+    Set<Profile> findInsideRequests(@Param("username") String username);
+
+    @Query("MATCH (n:Profile)-[rel:INSIDE_FRIEND_SHIP_REQUESTS]->(r:Profile) \n"+
+            "WHERE n.username={username} AND r.username={friendName} \n"+
+            "DELETE rel")
+    void deleteInsideRequests(@Param("username") String username, @Param("friendName") String friendName);
+
+    @Query("MATCH (n:Profile)-[rel:OUTSIDE_FRIEND_SHIP_REQUESTS]->(r:Profile) \n"+
+            "WHERE n.username={username} AND r.username={friendName} \n"+
+            "DELETE rel")
+    void deleteOutsideRequests(@Param("username") String username, @Param("friendName") String friendName);
 }
