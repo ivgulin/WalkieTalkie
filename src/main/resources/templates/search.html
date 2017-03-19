@@ -14,12 +14,10 @@
     <li id="lastName" th:text="${profile.lastName}"></li>
     <li id="username" th:text="${profile.username}"></li>
     <li>
-        <form th:action="@{/add/(username=${profile.username})}" method="post">
+        <form th:action="@{/profile/add/(username=${profile.username})}" method="post">
             <button type="submit" id="add">Add to friends</button>
         </form>
-
     </li>
-    <li id="message"></li>
 </ul>
 
 </body>

@@ -17,7 +17,7 @@
 <img th:src="@{/img/photo/(username=${profile.username})}" height="100" width="100"/>
 
 
-<form th:action="@{/search}" method="get" id="search-form">
+<form th:action="@{/profile/search}" method="get" id="search-form">
     <div class="search-bar">
         <input type="text" id="user" name="find" maxlength="30" placeholder="Search.."/>
         <button type="submit" id="search">Search</button>
@@ -51,7 +51,7 @@
     <li id="firstName" th:text="${asker.firstName}"></li>
     <li id="lastName" th:text="${asker.lastName}"></li>
     <li id="username" th:name="username" th:text="${asker.username}"></li>
-    <form th:action="@{/accept/(username=${asker.username})}" method="post">
+    <form th:action="@{/profile/accept/(username=${asker.username})}" method="post">
         <li>
             <button type="submit">Accept</button>
         </li>
