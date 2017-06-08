@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Walkie Talkie</title>
+</head>
+<body>
+
+<form th:action="@{/profile/edit}" th:object="${profile}" enctype="multipart/form-data" method="post">
+    <h2>Edit profile:</h2>
+
+    <div th:class="${#fields.hasErrors('username') ? 'form-group has-error has-feedback' : 'form-group has success'}">
+        <input type="text" name="username" id="username" th:field="*{username}"  placeholder="Username"/>
+        <label for="username" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect data</label>
+    </div>
+
+    <div>
+        <input type="text" name="firstName" id="firstName" th:field="*{firstName}" placeholder="First Name"/>
+    </div>
+
+    <div>
+        <input type="text" name="lastName" id="lastName" th:field="*{lastName}" placeholder="Last Name"/>
+    </div>
+
+    <div th:class="${#fields.hasErrors('email') ? 'form-group has-error has-feedback' : 'form-group has success'}">
+        <input type="text" name="email" id="email" th:field="*{email}"  placeholder="Email"/>
+        <label for="email" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect data</label>
+    </div>
+
+    <div th:class="${#fields.hasErrors('password') ? 'form-group has-error has-feedback' : 'form-group has success'}">
+        <input type="password" name="password" id="password" th:field="*{password}"  placeholder="Password"/>
+        <label for="password" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect data</label>
+    </div>
+
+    <div th:class="${#fields.hasErrors('confirmedPassword') ? 'form-group has-error has-feedback' : 'form-group has success'}">
+        <input type="password" name="confirmedPassword" id="confirmedPassword" th:field="*{confirmedPassword}"  placeholder="Confirm your password"/>
+        <label for="confirmedPassword" th:if="${#fields.hasErrors('confirmedPassword')}" th:errors="*{confirmedPassword}">Incorrect data</label>
+    </div>
+
+    <div>
+        <input type="file" id="file" th:object="${file}" accept=".jpg" name="file" placeholder="Photo"/>
+    </div>
+
+    <input type="submit" id="addProfile" value="Edit"/>
+</form>
+
+</body>
+</html>

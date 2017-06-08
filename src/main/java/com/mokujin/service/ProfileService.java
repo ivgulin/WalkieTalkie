@@ -26,6 +26,13 @@ public class ProfileService {
         return profileRepository.save(profile);
     }
 
+    public Profile edit(Profile profile) {
+        if (profile.getPassword().equals(profile.getConfirmedPassword())) {
+            profile.setPassword(bCryptPasswordEncoder.encode(profile.getPassword()));
+        }
+        return profileRepository.save(profile);
+    }
+
     public Profile findByUsername(String username) {
         Profile profile = profileRepository.findByUsername(username);
         Set<Profile> friends = profileRepository.findFriends(username);

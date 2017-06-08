@@ -36,14 +36,14 @@ public class ChatController {
     private ProfileService profileService;
 
     @GetMapping
-    public String chat( Model model){
+    public String chat(Model model) {
         model.addAttribute("profile", profileService.findByUsername(username));
         model.addAttribute("friend", profileService.findByUsername(friendName));
         return "chat";
     }
 
     @PostMapping
-    public String chat(@RequestParam("username")String friendName){
+    public String chat(@RequestParam("username") String friendName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         this.username = authentication.getName();
         this.friendName = friendName;
@@ -57,13 +57,19 @@ public class ChatController {
         ChatMessageModel chatMessage = new ChatMessageModel
                 (chatMessageModel.getText(), username, new Date(), friendName);
         chatMessageRepository.save(chatMessage);
-        List<ChatMessageModel> chatMessageModelList = chatMessageRepository.getDialogue(chatMessage.getAuthor(),chatMessage.getReceiver());
+        List<ChatMessageModel> chatMessageModelList =
+                chatMessageRepository.getDialogue(username, friendName,
+                        new PageRequest(0, 5, Sort.Direction.DESC, "message.createDate"))
+                        .getContent();
         return new ChatMessage(chatMessageModelList.toString());
     }
 
     @GetMapping("/messages")
-    public HttpEntity list() {
-        List<ChatMessageModel> chatMessageModelList = chatMessageRepository.getDialogue(username,friendName);
-        return new ResponseEntity(chatMessageModelList, HttpStatus.OK);
+    @CrossOrigin()
+    public HttpEntity<List<ChatMessageModel>> list() {
+        List<ChatMessageModel> chatMessageModelList = chatMessageRepository.getDialogue(username,
+                friendName, new PageRequest(0, 5, Sort.Direction.DESC, "message.createDate"))
+                .getContent();
+        return new ResponseEntity<>(chatMessageModelList, HttpStatus.OK);
     }
 }

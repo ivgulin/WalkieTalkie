@@ -16,6 +16,9 @@
 
 <img th:src="@{/img/photo/(username=${profile.username})}" height="100" width="100"/>
 
+<form th:action="@{/profile/edit}" method="get" >
+    <button type="submit">Edit profile</button>
+</form>
 
 <form th:action="@{/profile/search}" method="get" id="search-form">
     <div class="search-bar">

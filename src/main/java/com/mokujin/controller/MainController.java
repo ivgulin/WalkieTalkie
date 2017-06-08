@@ -4,8 +4,7 @@ package com.mokujin.controller;
 import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
 import com.mokujin.service.SecurityService;
-import com.mokujin.validator.ProfileValidator;
-import org.apache.commons.io.IOUtils;
+import com.mokujin.validator.ProfileRegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,8 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.*;
+
+import static com.mokujin.util.MultiPartFileUtil.convertMultiPartFileToByteArray;
 
 @Controller
 @RequestMapping("/")
@@ -28,7 +28,7 @@ public class MainController {
     private ProfileService profileService;
 
     @Autowired
-    private ProfileValidator validator;
+    private ProfileRegistrationValidator validator;
 
     @Autowired
     private SecurityService securityService;
@@ -99,15 +99,7 @@ public class MainController {
         return "redirect:/login?logout";
     }
 
-    private byte[] convertMultiPartFileToByteArray(MultipartFile file) {
-        byte[] photo = null;
-        try {
-            photo = IOUtils.toByteArray(file.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return photo;
-    }
+
 
     private boolean isUserAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -2,15 +2,18 @@ package com.mokujin.controller;
 
 import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
+import com.mokujin.service.SecurityService;
+import com.mokujin.validator.ProfileEditValidator;
+import com.mokujin.validator.ProfileRegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +24,11 @@ public class ProfileConroller {
     @Autowired
     private ProfileService profileService;
 
+    @Autowired
+    private ProfileEditValidator validator;
+
+    @Autowired
+    private SecurityService securityService;
 
     @GetMapping()
     public String profile(Model model) {
@@ -33,6 +41,31 @@ public class ProfileConroller {
         return "profile";
     }
 
+    @GetMapping("/edit")
+    public String edit(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Profile profile = profileService.findByUsername(authentication.getName());
+        model.addAttribute("profile", profile);
+        return "edit";
+    }
+
+
+    @PostMapping("/edit")
+    public String edit(@ModelAttribute("profile") Profile profile, @RequestParam("file") MultipartFile file, BindingResult bindingResult) {
+        Profile editedProfile = setNewProfileProperties(profile);
+        validator.validate(editedProfile, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        }
+
+        profile = profileService.edit(editedProfile);
+        securityService.autologin(profile.getUsername(), profile.getConfirmedPassword());
+        //will be commented until end of development
+        //MailUtil.sendAfterRegistrationMail(profile.getEmail());
+        return "redirect:/profile";
+
+    }
 
     @GetMapping("/search")
     public String search(@RequestParam("find") String searchRequest, Model model) {
@@ -57,7 +90,6 @@ public class ProfileConroller {
         model.addAttribute("profiles", profiles);
         return "search";
     }
-
 
 
     @PostMapping("/add")
@@ -91,9 +123,10 @@ public class ProfileConroller {
         if (profile.getEmail() != null) {
             savedProfile.setEmail(profile.getEmail());
         }
-        if (profile.getPassword() != null) {
-            savedProfile.setUsername(profile.getPassword());
-        }
+      /*  if (profile.getPassword() != null && profile.getConfirmedPassword() != null) {
+            savedProfile.setPassword(profile.getConfirmedPassword());
+            savedProfile.setConfirmedPassword(profile.getConfirmedPassword());
+        }*/
         if (profile.getPhoto() != null) {
             savedProfile.setPhoto(profile.getPhoto());
         }
