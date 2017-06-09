@@ -24,13 +24,13 @@ public class PasswordEditValidator implements Validator {
 
         if (profile.getPassword().equals(profile.getConfirmedPassword())) {
             if ((profile.getPassword().length() < 8 || profile.getPassword().length() > 32) && errors.getFieldError("password") == null) {
-                errors.rejectValue("password", "Size", "Password is too short.");
+                errors.rejectValue("confirmedPassword", "Size", "Password is too short.");
             }
             if (!profile.getConfirmedPassword().equals(profile.getPassword())) {
                 errors.rejectValue("confirmedPassword", "Difference", "Passwords didn't match.");
             }
             if (profile.getPassword().contains(" ")) {
-                errors.rejectValue("password", "Spaces", "Unacceptable symbol detected(space).");
+                errors.rejectValue("confirmedPassword", "Spaces", "Unacceptable symbol detected(space).");
             }
 
         }

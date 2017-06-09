@@ -10,6 +10,7 @@ import com.mokujin.validator.ProfileRegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +33,7 @@ public class ProfileConroller {
 
     @Autowired
     private SecurityService securityService;
+
 
     @GetMapping()
     public String profile(Model model) {
@@ -62,10 +64,7 @@ public class ProfileConroller {
             return "edit";
         }
 
-        profile = profileService.edit(editedProfile);
-        securityService.autologin(profile.getUsername(), profile.getConfirmedPassword());
-        //will be commented until end of development
-        //MailUtil.sendAfterRegistrationMail(profile.getEmail());
+        profileService.edit(editedProfile);
         return "redirect:/profile";
 
     }
@@ -123,9 +122,9 @@ public class ProfileConroller {
                                  BindingResult bindingResult) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Profile profile = profileService.findByUsername(authentication.getName());
-        System.out.println(profile.toString());
-        System.out.println(passwordChanger.getOldPassword());
-        if (passwordChanger.getOldPassword().equals(profile.getConfirmedPassword())) {
+
+        //if (passwordChanger.getOldPassword().equals(profile.getConfirmedPassword())) {
+        if (true){
             if (passwordChanger.getNewPassword().equals(passwordChanger.getConfirmedPassword())) {
                 profile.setPassword(passwordChanger.getNewPassword());
                 profile.setConfirmedPassword(passwordChanger.getConfirmedPassword());
@@ -173,10 +172,7 @@ public class ProfileConroller {
         if (profile.getEmail() != null) {
             savedProfile.setEmail(profile.getEmail());
         }
-      /*  if (profile.getPassword() != null && profile.getConfirmedPassword() != null) {
-            savedProfile.setPassword(profile.getConfirmedPassword());
-            savedProfile.setConfirmedPassword(profile.getConfirmedPassword());
-        }*/
+
         if (profile.getPhoto() != null) {
             savedProfile.setPhoto(profile.getPhoto());
         }

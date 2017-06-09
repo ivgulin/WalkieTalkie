@@ -79,7 +79,7 @@ public class Profile {
     }
 
     public void addFriend(Profile friend) {
-            this.friends.add(friend);
+        this.friends.add(friend);
     }
 
     public void setFriends(Set<Profile> friends) {
@@ -102,7 +102,7 @@ public class Profile {
         this.outsideFriendShipRequests = outsideFriendShipRequests;
     }
 
-    public void setOutsideFriendshipRequest(Profile profile){
+    public void setOutsideFriendshipRequest(Profile profile) {
         outsideFriendShipRequests.add(profile);
     }
 
@@ -114,7 +114,18 @@ public class Profile {
         this.insideFriendShipRequests = insideFriendShipRequests;
     }
 
-    public void setInsideFriendshipRequest(Profile profile){
+    public void setInsideFriendshipRequest(Profile profile) {
         insideFriendShipRequests.add(profile);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", confirmedPassword='" + password + '\'' +
+                '}';
     }
 }
