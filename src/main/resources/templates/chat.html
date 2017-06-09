@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head lang="en">
     <meta charset="UTF-8"/>
     <title></title>
@@ -106,5 +106,8 @@
         </div>
     </div>
 </div>
+<form th:action="@{/profile}" method="get">
+    <button type="submit" id="add">Back To Profile</button>
+</form>
 </body>
 </html>

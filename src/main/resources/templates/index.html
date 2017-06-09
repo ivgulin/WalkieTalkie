@@ -9,14 +9,20 @@
 
 
 <form method="POST" th:action="@{/login}" id="login" class="form-signin">
-    <h2 class="form-heading">Log in</h2>
+    <h2 class="form-heading">Login Into Your Account</h2>
     <span th:text="${message}"></span>
     <div>
 
         <input name="username" id="username" type="text" placeholder="Username"
                autofocus="true"/>
+    </div>
+    <div>
         <input name="password" type="password" placeholder="Password"/>
+    </div>
+    <div>
         <span th:text="${error}"></span>
+    </div>
+    <div>
         <button type="submit">Log In</button>
         <h4 class="text-center"><a th:href="@{/registration}">Create an account</a></h4>
     </div>
