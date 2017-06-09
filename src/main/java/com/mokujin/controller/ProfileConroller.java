@@ -1,5 +1,6 @@
 package com.mokujin.controller;
 
+import com.mokujin.domain.PasswordChanger;
 import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
 import com.mokujin.service.SecurityService;
@@ -107,6 +108,14 @@ public class ProfileConroller {
         profileService.acceptFriendship(username, friendName);
         return "redirect:/profile";
     }
+
+    @GetMapping("/changePassword")
+    public String changePassword(Model model) {
+        model.addAttribute("passwordChanger", new PasswordChanger());
+        return "editPassword";
+    }
+
+
 
     private Profile setNewProfileProperties(Profile profile) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
