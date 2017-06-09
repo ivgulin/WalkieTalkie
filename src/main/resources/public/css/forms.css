@@ -1,0 +1,15 @@
+.title {
+    font-family: "Courier New";
+    color: white;
+    font-size: 30pt;
+    margin-left: 5%;
+}
+
+.header {
+    position: relative;
+    min-width: 100%;
+    height: 30%;
+    display: inline-block;
+    background-color: paleturquoise;
+}
+
