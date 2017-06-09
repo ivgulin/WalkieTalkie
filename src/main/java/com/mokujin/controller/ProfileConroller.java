@@ -4,6 +4,7 @@ import com.mokujin.domain.PasswordChanger;
 import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
 import com.mokujin.service.SecurityService;
+import com.mokujin.validator.PasswordEditValidator;
 import com.mokujin.validator.ProfileEditValidator;
 import com.mokujin.validator.ProfileRegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -115,6 +117,45 @@ public class ProfileConroller {
         return "editPassword";
     }
 
+    @PostMapping("/changePassword")
+    public String changePassword(@ModelAttribute("passwordChanger") PasswordChanger passwordChanger,
+                                 Model model,
+                                 BindingResult bindingResult) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Profile profile = profileService.findByUsername(authentication.getName());
+        System.out.println(profile.toString());
+        System.out.println(passwordChanger.getOldPassword());
+        if (passwordChanger.getOldPassword().equals(profile.getConfirmedPassword())) {
+            if (passwordChanger.getNewPassword().equals(passwordChanger.getConfirmedPassword())) {
+                profile.setPassword(passwordChanger.getNewPassword());
+                profile.setConfirmedPassword(passwordChanger.getConfirmedPassword());
+                PasswordEditValidator validator = new PasswordEditValidator();
+                validator.validate(profile, bindingResult);
+                if (bindingResult.getErrorCount() != 0) {
+                    String message = "";
+                    for (Object object : bindingResult.getAllErrors()) {
+                        if (object instanceof ObjectError) {
+                            ObjectError error = (ObjectError) object;
+                            model.addAttribute("newPasswordError", message + "\n" + error.getDefaultMessage());
+                            return "editPassword";
+                        }
+                    }
+                } else {
+                    profile = profileService.edit(profile);
+                    securityService.autologin(profile.getUsername(), profile.getConfirmedPassword());
+                    return "redirect:/profile";
+                }
+
+            } else {
+                model.addAttribute("newPasswordError", "Passwords don't match.");
+                return "editPassword";
+            }
+        } else {
+            model.addAttribute("oldPasswordError", "Bad credential. Try again.");
+            return "editPassword";
+        }
+        return "redirect:/profile";
+    }
 
 
     private Profile setNewProfileProperties(Profile profile) {
