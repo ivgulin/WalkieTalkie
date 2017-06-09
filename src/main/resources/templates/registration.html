@@ -7,6 +7,11 @@
 </head>
 <body>
 
+<div class="header">
+    <img th:src="@{/img/fullLogo}" height="100" width="100"/>
+    <label class="title"><b>Walkie Talkie</b></label>
+</div>
+
 <form action="#" th:action="@{/registration}" th:object="${profile}" enctype="multipart/form-data" method="post">
     <h2>Registration</h2>
 

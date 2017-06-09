@@ -33,6 +33,26 @@ public class ImageController {
         response.getOutputStream().close();
     }
 
+    @GetMapping("/logo")
+    public void showLogo(HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+        File defaultImage = new File(System.getProperty("user.dir"),"src/main/resources/public/image/header-logo.jpg");
+        byte[] logo = Files.readAllBytes(defaultImage.toPath());
+        response.getOutputStream().write(logo);
+        response.getOutputStream().close();
+    }
+
+    @GetMapping("/fullLogo")
+    public void showFullLogo(HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+        File defaultImage = new File(System.getProperty("user.dir"),"src/main/resources/public/image/logo.png");
+        byte[] logo = Files.readAllBytes(defaultImage.toPath());
+        response.getOutputStream().write(logo);
+        response.getOutputStream().close();
+    }
+
     private byte[] getDefaultPhoto() throws IOException {
         File defaultImage = new File(System.getProperty("user.dir"),"src/main/resources/public/image/default.jpg");
         return Files.readAllBytes(defaultImage.toPath());

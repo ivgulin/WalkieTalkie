@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="site-head">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Walkie Talkie</title>
-    <link href="../public/image/header-logo.jpg" rel="icon" type="image/jpg"/>
+    <link th:href="@{/img/logo}" href="../public/image/header-logo.jpg" rel="icon"/>
     <link href="../public/css/forms.css" rel="stylesheet"/>
 </head>
 <body>
 
 <div class="header">
-    <img th:src="@{../public/image/logo.png}" src="../public/image/logo.png" width="100" height="100"/>
+    <img th:src="@{/img/fullLogo}" height="100" width="100"/>
     <label class="title"><b>Walkie Talkie</b></label>
 </div>
 

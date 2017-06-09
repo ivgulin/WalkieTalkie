@@ -8,6 +8,12 @@
     <link href = "../public/image/header-logo.jpg" rel="icon" type="image/jpg"/>
 </head>
 <body>
+
+<div class="header">
+    <img th:src="@{/img/fullLogo}" height="100" width="100"/>
+    <label class="title"><b>Walkie Talkie</b></label>
+</div>
+
 <h1>Result of searching:</h1>
 <ul th:each="profile,iterationStatus  : ${profiles}">
 
