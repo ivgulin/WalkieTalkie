@@ -4,47 +4,170 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Walkie Talkie</title>
     <link th:href="@{/img/logo}" href="../public/image/header-logo.jpg" rel="icon"/>
-</head>
-<body>
+    <!--ATTENTION! As link to css file doesn't work due thymeleaf problems, while it gets solved, here will be style tag-->
+    <style>
+        .main-header {
+            width: 100%;
+            height: 100px;
+            margin:0px auto;
+            z-index:0;
+        }
 
-<div class="header">
-    <img th:src="@{/img/fullLogo}" height="100" width="100"/>
-    <label class="title"><b>Walkie Talkie</b></label>
+        .header {
+            position: fixed;
+            width: 100%;
+            height: 100px;
+            display: inline-block;
+            background-color: #98d9ea;
+            margin-bottom: 10pt;
+            z-index: 9999;
+        }
+
+        .body {
+            background-color: azure;
+        }
+
+        .tab-button {
+            position: absolute;
+            background-color: #98d9ea;
+            border: none;
+            font-size: 130%;
+            font-family: "Georgia";
+            font-weight: bold;
+            color: blue;
+            text-align: center;
+            margin-left: 60%;
+            padding-top: 28pt;
+            padding-bottom: 28pt;
+        }
+
+        .tab-button:hover {
+            background-color: paleturquoise;
+            color: white;
+        }
+
+        .tab-button:active {
+            transform: translateY(4px);
+        }
+
+        .ref-img:active {
+            transform: translateY(4px);
+        }
+
+        .form {
+            border: solid;
+            border-color: lightskyblue;
+            width: 25%;
+            padding: 10pt;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 2%;
+            text-align: center;
+            color: blue;
+            background-color: ivory;
+            padding-left: 50pt;
+            padding-right: 50pt;
+            padding-top: 20pt;
+            padding-bottom: 20pt;
+        }
+
+        .submit-button {
+            background-color: #98d9ea;
+            border: 2px solid;
+            border-radius: 5px;
+            border-color: #98d9ea;
+            color: white;
+            font-family: "Georgia";
+            padding: 5px 62px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .element {
+            margin: 15pt;
+            font-family: "Georgia";
+        }
+
+        .input {
+            padding: 5px 0px;
+        }
+
+        .submit-button:hover {
+            background-color: white;
+            color: #98d9ea;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: blue;
+        }
+
+        a:hover {
+            color: #98d9ea;
+        }
+
+        .error-message {
+            color: red;
+            font-family: "Georgia";
+        }
+    </style>
+    <!--The end of style tag-->
+</head>
+<body class="body">
+
+
+<div class="main-header">
+    <div class="header">
+        <a th:href="@{/profile}">
+            <img class="ref-img" th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100" width="100"/>
+            <img class="ref-img" th:src="@{/img/title}" src="../public/image/title.png" height="100" width="285"/>
+        </a>
+        <a th:href="@{/profile}">
+            <button class="tab-button" title='Profile'>Back To Profile</button>
+        </a>
+    </div>
 </div>
 
-<form th:action="@{/profile/edit}" th:object="${profile}" enctype="multipart/form-data" method="post">
-    <h2>Edit profile:</h2>
+<form class="form" th:action="@{/profile/edit}" th:object="${profile}" enctype="multipart/form-data" method="post">
+    <h2 class="element">Edit profile:</h2>
 
     <div th:class="${#fields.hasErrors('username') ? 'form-group has-error has-feedback' : 'form-group has success'}">
-        <input type="text" name="username" id="username" th:field="*{username}"  placeholder="Username"/>
-        <label for="username" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect data</label>
+        <input class="input" type="text" name="username" id="username" th:field="*{username}" placeholder="Username"/>
+        <div class="error-message">
+            <label for="username" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect
+                data</label>
+        </div>
     </div>
 
-    <div>
-        <input type="text" name="firstName" id="firstName" th:field="*{firstName}" placeholder="First Name"/>
+    <div class="element">
+        <input class="input" type="text" name="firstName" id="firstName" th:field="*{firstName}"
+               placeholder="First Name"/>
     </div>
 
-    <div>
-        <input type="text" name="lastName" id="lastName" th:field="*{lastName}" placeholder="Last Name"/>
+    <div class="element">
+        <input class="input" type="text" name="lastName" id="lastName" th:field="*{lastName}" placeholder="Last Name"/>
     </div>
 
-    <div th:class="${#fields.hasErrors('email') ? 'form-group has-error has-feedback' : 'form-group has success'}">
-        <input type="text" name="email" id="email" th:field="*{email}"  placeholder="Email"/>
-        <label for="email" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect data</label>
+    <div class="element">
+        <input class="input" type="text" name="email" id="email" th:field="*{email}" placeholder="Email"/>
+        <div class="error-message">
+            <label for="email" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect data</label>
+        </div>
     </div>
 
 
-    <div>
-        <input type="file" id="file" th:object="${file}" accept=".jpg" name="file" placeholder="Photo"/>
+    <div class="element">
+        <input class="input" type="file" id="file" th:object="${file}" accept=".jpg" name="file" placeholder="Photo"/>
     </div>
 
-    <input type="submit" id="addProfile" value="Edit"/>
-</form>
+    <input class="submit-button" type="submit" id="addProfile" value="Edit"/>
+    <h4 class="text-center"><a th:href="@{/profile/changePassword}">Change password</a></h4>
 
-<h4 class="text-center"><a th:href="@{/profile/changePassword}">Change password</a></h4>
-
-<form th:action="@{/profile}" method="get">
-    <button type="submit" id="add">Back To Profile</button>
 </form>
 
 </body>

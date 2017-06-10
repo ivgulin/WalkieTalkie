@@ -85,7 +85,7 @@
             font-family: "Georgia";
         }
 
-        .input{
+        .input {
             padding: 5px 0px;
         }
 
@@ -94,7 +94,7 @@
             color: #98d9ea;
         }
 
-        a{
+        a {
             text-decoration: none;
         }
 
@@ -102,8 +102,13 @@
             color: blue;
         }
 
-        a:hover{
+        a:hover {
             color: #98d9ea;
+        }
+
+        .error-message {
+            color: red;
+            font-family: "Georgia";
         }
     </style>
     <!--The end of style tag-->
@@ -111,29 +116,27 @@
 <body class="body">
 
 <div class="header">
-    <span>
     <a th:href="@{/profile}">
         <img class="ref-img" th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100" width="100"/>
         <img class="ref-img" th:src="@{/img/title}" src="../public/image/title.png" height="100" width="285"/>
     </a>
-        <a th:href="@{/registration}">
+    <a th:href="@{/registration}">
         <button class="tab-button" title='Registration'>Sign Up</button>
-        </a>
-    </span>
+    </a>
 </div>
 
 <form method="POST" th:action="@{/login}" id="login" class="form">
     <h2 class="element">Login Into Your Account</h2>
-    <span th:text="${message}"></span>
+    <span class="element" th:text="${message}"></span>
     <div class="element">
-         <input class="input" name="username" id="username" type="text" placeholder="Username"
+        <input class="input" name="username" id="username" type="text" placeholder="Username"
                autofocus="true"/>
     </div>
     <div class="element">
         <input class="input" name="password" type="password" placeholder="Password"/>
     </div>
     <div class="element">
-        <span th:text="${error}"></span>
+        <span class="error-message" th:text="${error}"></span>
     </div>
     <div class="element">
         <button class="submit-button" type="submit">Log In</button>

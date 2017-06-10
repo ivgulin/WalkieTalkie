@@ -3,13 +3,111 @@
 <head lang="en">
     <meta charset="UTF-8"/>
     <link th:href="@{/img/logo}" href="../public/image/header-logo.jpg" rel="icon"/>
-    <title></title>
+    <title>Walkie Talkie</title>
     <script src="//code.jquery.com/jquery-1.11.1.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.0/jquery.timeago.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.0.0/sockjs.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <!--ATTENTION! As link to css file doesn't work due thymeleaf problems, while it gets solved, here will be style tag-->
+    <style>
+        .main-header {
+            width: 100%;
+            height: 100px;
+            margin: 0px auto;
+            z-index: 0;
+        }
+
+        .header {
+            position: fixed;
+            width: 100%;
+            height: 100px;
+            display: inline-block;
+            background-color: #98d9ea;
+            margin-bottom: 10pt;
+            z-index: 9999;
+        }
+
+        .body {
+            background-color: azure;
+        }
+
+        .tab-button {
+            position: absolute;
+            background-color: #98d9ea;
+            border: none;
+            font-size: 130%;
+            font-family: "Georgia";
+            font-weight: bold;
+            color: blue;
+            text-align: center;
+            margin-left: 60%;
+            padding-top: 28pt;
+            padding-bottom: 28pt;
+        }
+
+        .tab-button:hover {
+            background-color: paleturquoise;
+            color: white;
+        }
+
+        .tab-button:active {
+            transform: translateY(4px);
+        }
+
+        .ref-img:active {
+            transform: translateY(4px);
+        }
+
+       .container{
+           margin-top: 0%;
+       }
+
+       .row{
+           margin-top: 0%;
+           padding-right: 140pt;
+
+       }
+
+       .col-md-12{
+           margin-top: 0%;
+           margin-left: 10%;
+       }
+
+        .element {
+            margin: 15pt;
+            font-family: "Georgia";
+        }
+
+        .input {
+            padding: 5px 0px;
+        }
+
+        .submit-button:hover {
+            background-color: white;
+            color: #98d9ea;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: blue;
+        }
+
+        a:hover {
+            color: #98d9ea;
+        }
+
+        #sendMessage{
+            font-family: "Georgia";
+        }
+    </style>
+    <!--The end of style tag-->
+
 
     <script>
         var stompClient = null;
@@ -71,29 +169,38 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
     <style type="text/css">
         .fixed-panel {
-            min-height: 500px;
-            max-height: 500px;
+            min-height: 475px;
+            max-height: 475px;
         }
+
 
         .media-list {
             overflow: auto;
         }
     </style>
 </head>
-<body>
+<body class="body">
 
-<div class="header">
-    <img th:src="@{/img/fullLogo}" height="100" width="100"/>
-    <label class="title"><b>Walkie Talkie</b></label>
+
+<div class="main-header">
+    <div class="header">
+        <a th:href="@{/profile}">
+            <img class="ref-img" th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100" width="100"/>
+            <img class="ref-img" th:src="@{/img/title}" src="../public/image/title.png" height="100" width="285"/>
+        </a>
+        <a th:href="@{/profile}">
+            <button class="tab-button" title='Profile'>Back To Profile</button>
+        </a>
+    </div>
 </div>
 
 <div class="container">
-    <div class="row " style="padding-top:40px;">
+    <div class="row" style="padding-top:40px;">
 
         <div class="col-md-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <strong><span class="glyphicon glyphicon-list"></span> Chat History</strong>
+                    <strong class="element"><span class="glyphicon glyphicon-list"></span> Chat History</strong>
                 </div>
                 <div class="panel-body fixed-panel">
                     <ul class="media-list">
@@ -113,8 +220,5 @@
         </div>
     </div>
 </div>
-<form th:action="@{/profile}" method="get">
-    <button type="submit" id="add">Back To Profile</button>
-</form>
 </body>
 </html>
