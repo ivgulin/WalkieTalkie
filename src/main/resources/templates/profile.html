@@ -2,72 +2,226 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <link th:href="@{/img/logo}" href="../public/image/header-logo.jpg" rel="icon"/>
     <title>Walkie Talkie</title>
-</head>
-<body>
+    <!--ATTENTION! As link to css file doesn't work due thymeleaf problems, while it gets solved, here will be style tag-->
+    <style>
+        .main-header {
+            width: 100%;
+            height: 100px;
+            margin: 0px auto;
+            z-index: 0;
+        }
 
-<div class="header">
-    <img th:src="@{/img/fullLogo}" height="100" width="100"/>
-    <label class="title"><b>Walkie Talkie</b></label>
+        .header {
+            position: fixed;
+            width: 100%;
+            height: 100px;
+            display: inline-block;
+            background-color: #98d9ea;
+            margin-bottom: 10pt;
+            z-index: 9999;
+        }
+
+        .image {
+            border-radius: 50%;
+        }
+
+        .body {
+            background-color: azure;
+        }
+
+        .tab-button {
+            position: fixed;
+            background-color: #98d9ea;
+            border: none;
+            font-size: 130%;
+            font-family: "Georgia";
+            font-weight: bold;
+            color: blue;
+            text-align: center;
+            margin-left: 46%;
+            padding-top: 28pt;
+            padding-bottom: 28pt;
+        }
+
+        .tab-button:hover {
+            background-color: paleturquoise;
+            color: white;
+        }
+
+        .tab-button:active {
+            transform: translateY(4px);
+        }
+
+        .ref-img:active {
+            transform: translateY(4px);
+        }
+
+        #search {
+            border: 2px solid;
+            border-radius: 5px;
+            color: blue;
+            margin-left: 10px;
+        }
+
+        #search-bar {
+            position: absolute;
+            margin-top: -50pt;
+            margin-left: 38%;
+        }
+
+        .submit-button {
+            background-color: #98d9ea;
+            border: 2px solid;
+            border-radius: 5px;
+            border-color: #98d9ea;
+            color: white;
+            font-family: "Georgia";
+            padding: 5px 62px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .element {
+            margin: 15pt;
+            font-family: "Georgia";
+            color: blue;
+        }
+
+        .edit:hover {
+            color: #98d9ea;
+        }
+
+        .submit-button:hover {
+            background-color: white;
+            color: #98d9ea;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: blue;
+        }
+
+        a:hover {
+            color: #98d9ea;
+        }
+
+        #logout {
+            margin-left: 60%;
+        }
+
+        #settings {
+            margin-left: 53.5%;
+        }
+
+        .profile {
+            position: fixed;
+            border: solid;
+            border-color: lightskyblue;
+            width: 25%;
+            margin-top: -1%;
+            text-align: center;
+            color: blue;
+            background-color: ivory;
+            padding-top: 10pt;
+            z-index: 9999;
+        }
+
+        .main-profile {
+            margin-top: 0%;
+            padding-top: 10pt;
+            width: 25%;
+            z-index: 0;
+        }
+
+        .friends {
+            margin-top: 20%;
+            width: 25.4%;
+            text-align: center;
+            padding-top: 4pt;
+            z-index: 9999;
+        }
+
+        .friend {
+            border-right: solid lightskyblue;
+            border-bottom: 10px solid lightcyan;
+            width: 100%;
+            background-color: white;
+            clear: both;
+        }
+
+        .friend:hover {
+            background-color: lightblue;
+        }
+
+        .line {
+            float: left;
+        }
+    </style>
+    <!--The end of style tag-->
+
+</head>
+<body class="body">
+
+<div class="main-header">
+    <div class="header">
+        <a th:href="@{/profile}">
+            <img class="ref-img" th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100" width="100"/>
+            <img class="ref-img" th:src="@{/img/title}" src="../public/image/title.png" height="100" width="285"/>
+        </a>
+
+        <form id="search-bar" th:action="@{/profile/search}" method="get">
+            <input type="text" id="user" name="find" maxlength="30" placeholder="Search.."/>
+            <button class="submit-button" type="submit" id="search">Click</button>
+        </form>
+        <a th:href="@{/profile/requests}">
+            <button id="request" class="tab-button" title='Requests'>Requests</button>
+        </a>
+        <a th:href="@{/profile/edit}">
+            <button id="settings" class="tab-button" title='Settings'>Settings</button>
+        </a>
+        <a th:href="@{/logout}">
+            <button id="logout" class="tab-button" title='Logout'>Logout</button>
+        </a>
+    </div>
+
+</div>
+<div class="main-profile">
+    <div class="profile">
+        <a th:href="@{/profile/edit}" title="Change photo">
+            <img class="image" th:src="@{/img/photo/(username=${profile.username})}" height="100" width="100"/>
+        </a>
+        <a th:href="@{/profile/edit}" title="Change name">
+            <h2 class="element edit" th:id="name" th:text="${profile.firstName} + ' ' + ${profile.lastName}"></h2>
+        </a>
+        <a th:href="@{/profile/edit}" title="Change username">
+            <h4 class="element edit" th:text="'Username: '  + ${profile.username}"></h4>
+        </a>
+        <a th:href="@{/profile/edit}" title="Change email">
+            <h4 class="element edit" th:text="'Email: ' + ${profile.email}"></h4>
+        </a>
+        <h2 class="element">Friends:</h2>
+    </div>
 </div>
 
-<h2 th:id="username" th:text="${profile.firstName}">lol</h2>
-<h2 th:text="${profile.lastName}"></h2>
-<p th:text="${profile.username}"></p>
-<p th:text="${profile.email}"></p>
 
-<img th:src="@{/img/photo/(username=${profile.username})}" height="100" width="100"/>
-
-<form th:action="@{/profile/edit}" method="get" >
-    <button type="submit">Edit profile</button>
-</form>
-
-<form th:action="@{/profile/search}" method="get" id="search-form">
-    <div class="search-bar">
-        <input type="text" id="user" name="find" maxlength="30" placeholder="Search.."/>
-        <button type="submit" id="search">Search</button>
-        <!--<input type="image" class="searchbutton" name="search" src="http://www.spheretekk.com/bc/images/search-icon.gif" alt="Search">-->
+<div class="friends">
+    <div class="friend" th:each="friend,iterationStatus  : ${friends}">
+        <a  th:href="@{/chat/(username=${friend.username})}">
+            <div>
+                <img id="photo" class="image" th:src="@{/img/photo/(username=${friend.username})}" height="50"
+                     width="50"/>
+                <h4 class="element" id="name" th:text="${friend.firstName} + ' ' + ${friend.lastName}"></h4>
+            </div>
+        </a>
     </div>
-</form>
+</div>
 
-<h2>List of Friends:</h2>
-<ul th:each="friend,iterationStatus  : ${friends}">
-    <li><img th:src="@{/img/photo/(username=${friend.username})}" height="50" width="50"/></li>
-    <li id="firstName" th:text="${friend.firstName}"></li>
-    <li id="lastName" th:text="${friend.lastName}"></li>
-    <li id="username" th:name="username" th:text="${friend.username}"></li>
-    <form th:action="@{/chat/(username=${friend.username})}" method="post">
-        <li>
-            <button type="submit">Chat</button>
-        </li>
-    </form>
-</ul>
-<h2>Requests by me</h2>
-<ul th:each="receiver,iterationStatus  : ${insideFriendshipRequests}">
-    <li><img th:src="@{/img/photo/(username=${receiver.username})}" height="50" width="50"/></li>
-    <li id="firstName" th:text="${receiver.firstName}"></li>
-    <li id="lastName" th:text="${receiver.lastName}"></li>
-    <li id="username" th:name="username" th:text="${receiver.username}"></li>
-</ul>
-
-<h2>Requests by others</h2>
-<ul th:each="asker,iterationStatus  : ${outsideFriendShipRequests}">
-    <li><img th:src="@{/img/photo/(username=${asker.username})}" height="50" width="50"/></li>
-    <li id="firstName" th:text="${asker.firstName}"></li>
-    <li id="lastName" th:text="${asker.lastName}"></li>
-    <li id="username" th:name="username" th:text="${asker.username}"></li>
-    <form th:action="@{/profile/accept/(username=${asker.username})}" method="post">
-        <li>
-            <button type="submit">Accept</button>
-        </li>
-    </form>
-</ul>
-
-
-<a th:href="@{/logout}">Logout</a>
 </body>
 </html>

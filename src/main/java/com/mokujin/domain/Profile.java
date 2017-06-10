@@ -118,14 +118,4 @@ public class Profile {
         insideFriendShipRequests.add(profile);
     }
 
-
-    @Override
-    public String toString() {
-        return "Profile{" +
-                "username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", confirmedPassword='" + password + '\'' +
-                '}';
-    }
 }

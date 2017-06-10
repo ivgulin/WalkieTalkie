@@ -41,8 +41,6 @@ public class ProfileConroller {
         Profile profile = profileService.findByUsername(authentication.getName());
         model.addAttribute("profile", profile);
         model.addAttribute("friends", profile.getFriends());
-        model.addAttribute("insideFriendshipRequests", profile.getInsideFriendShipRequests());
-        model.addAttribute("outsideFriendShipRequests", profile.getOutsideFriendShipRequests());
         return "profile";
     }
 
@@ -108,6 +106,16 @@ public class ProfileConroller {
         String username = authentication.getName();
         profileService.acceptFriendship(username, friendName);
         return "redirect:/profile";
+    }
+
+
+    @GetMapping("/requests")
+    public String requests(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Profile profile = profileService.findByUsername(authentication.getName());
+        model.addAttribute("insideFriendshipRequests", profile.getInsideFriendShipRequests());
+        model.addAttribute("outsideFriendShipRequests", profile.getOutsideFriendShipRequests());
+        return "requests";
     }
 
     @GetMapping("/changePassword")
