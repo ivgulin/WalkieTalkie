@@ -4,34 +4,131 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Walkie Talkie</title>
     <link th:href="@{/img/logo}" href="../public/image/header-logo.jpg" rel="icon"/>
-    <link href="../public/css/forms.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" media="all" href="../public/css/forms.css"
+          th:href="@{/public/css/forms.css}"/>
+    <!--ATTENTION! As link to css file doesn't work due thymeleaf problems, while it gets solved, here will be style tag-->
+    <style>
+        .header {
+
+            position: relative;
+            width: 100%;
+            height: 100px;
+            display: inline-block;
+            background-color: #98d9ea;
+            margin-bottom: 10pt;
+        }
+
+        .body {
+            background-color: azure;
+        }
+
+        .tab-button {
+            position: absolute;
+            background-color: #98d9ea;
+            border: none;
+            font-size: 150%;
+            font-family: "Gill Sans MT";
+            font-weight: bold;
+            color: blue;
+            text-align: center;
+            margin-left: 60%;
+            padding-top: 27pt;
+            padding-bottom: 27pt;
+        }
+
+        .tab-button:hover {
+            background-color: paleturquoise;
+            color: white;
+        }
+
+        .tab-button:active {
+            transform: translateY(4px);
+        }
+
+        .ref-img:active {
+            transform: translateY(4px);
+        }
+
+        .form {
+            border: solid;
+            border-color: lightskyblue;
+            width: 25%;
+            padding: 10pt;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 5%;
+            text-align: center;
+            color: blue;
+            background-color: ivory;
+            padding-left: 50pt;
+            padding-right: 50pt;
+            padding-top: 20pt;
+            padding-bottom: 50pt;
+        }
+
+        .submit-button {
+            background-color: #98d9ea;
+            border: 2px solid;
+            border-radius: 5px;
+            border-color: #98d9ea;
+            color: white;
+            padding: 5px 62px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .element {
+            margin: 15pt;
+            font-family: "Georgia";
+        }
+
+        .input{
+            padding: 5px 0px;
+        }
+
+        .submit-button:hover {
+            background-color: white;
+            color: #98d9ea;
+        }
+    </style>
+    <!--The end of style tag-->
 </head>
-<body>
+<body class="body">
 
 <div class="header">
-    <img th:src="@{/img/fullLogo}" height="100" width="100"/>
-    <label class="title"><b>Walkie Talkie</b></label>
+    <span>
+    <a th:href="@{/login}">
+        <img class="ref-img" th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100" width="100"/>
+        <img class="ref-img" th:src="@{/img/title}" src="../public/image/title.png" height="100" width="285"/>
+    </a>
+        <a th:href="@{/registration}">
+        <button class="tab-button" title='Registration'>Sign Up</button>
+        </a>
+    </span>
 </div>
 
-<form method="POST" th:action="@{/login}" id="login" class="form-signin">
+<form method="POST" th:action="@{/login}" id="login" class="form">
     <h2 class="form-heading">Login Into Your Account</h2>
     <span th:text="${message}"></span>
-    <div>
-
-        <input name="username" id="username" type="text" placeholder="Username"
+    <div class="element">
+         <input class="input" name="username" id="username" type="text" placeholder="Username"
                autofocus="true"/>
     </div>
-    <div>
-        <input name="password" type="password" placeholder="Password"/>
+    <div class="element">
+        <input class="input" name="password" type="password" placeholder="Password"/>
     </div>
-    <div>
+    <div class="element">
         <span th:text="${error}"></span>
     </div>
-    <div>
-        <button type="submit">Log In</button>
+    <div class="element">
+        <button class="submit-button" type="submit">Log In</button>
         <h4 class="text-center"><a th:href="@{/registration}">Create an account</a></h4>
     </div>
 
 </form>
 </body>
 </html>
+
+

@@ -3,58 +3,191 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Walkie Talkie</title>
-    <link href = "../public/image/header-logo.jpg" rel="icon" type="image/jpg"/>
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" media="all" href="../public/css/forms.css"/>
+    <!--ATTENTION! As link to css file doesn't work due thymeleaf problems, while it gets solved, here will be style tag-->
+    <style>
+        .main-header {
+            width: 100%;
+            height: 100px;
+            margin:0px auto;
+            z-index:0;
+        }
 
-<div class="header">
-    <img th:src="@{/img/fullLogo}" height="100" width="100"/>
-    <label class="title"><b>Walkie Talkie</b></label>
+
+
+        .header {
+            position: fixed;
+            width: 100%;
+            height: 100px;
+            display: inline-block;
+            background-color: #98d9ea;
+            margin-bottom: 10pt;
+            z-index: 9999;
+        }
+
+        .body {
+            background-color: azure;
+        }
+
+        .tab-button {
+            position: absolute;
+            background-color: #98d9ea;
+            border: none;
+            font-size: 150%;
+            font-family: "Gill Sans MT";
+            font-weight: bold;
+            color: blue;
+            text-align: center;
+            margin-left: 60%;
+            padding-top: 27pt;
+            padding-bottom: 27pt;
+        }
+
+        .tab-button:hover {
+            background-color: paleturquoise;
+            color: white;
+        }
+
+        .tab-button:active {
+            transform: translateY(4px);
+        }
+
+        .ref-img:active {
+            transform: translateY(4px);
+        }
+
+        .form {
+            border: solid;
+            border-color: lightskyblue;
+            width: 25%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10pt;
+            text-align: center;
+            color: blue;
+            background-color: ivory;
+            padding-left: 50pt;
+            padding-right: 50pt;
+            padding-top: 5pt;
+            padding-bottom: 5pt;
+        }
+
+        .submit-button {
+            background-color: #98d9ea;
+            border: 2px solid;
+            border-radius: 5px;
+            border-color: #98d9ea;
+            color: white;
+            padding: 5px 62px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .element {
+            margin: 15pt;
+        }
+
+        .input {
+            position: relative;
+            padding: 5px 0px;
+        }
+
+        .submit-button:hover {
+            background-color: white;
+            color: #98d9ea;
+        }
+
+        .error-label {
+            color: red;
+            margin-left: 10pt;
+        }
+    </style>
+    <!--The end of style tag-->
+</head>
+<body class="body">
+
+<div class="main-header">
+    <div class="header">
+    <a th:href="@{/login}">
+        <img th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100" width="100"/>
+        <img th:src="@{/img/title}" src="../public/image/title.png" height="100" width="285"/>
+    </a>
+        <a th:href="@{/login}">
+        <button class="tab-button" title='Log In'>Log In</button>
+        </a>
+    </div>
 </div>
 
-<form action="#" th:action="@{/registration}" th:object="${profile}" enctype="multipart/form-data" method="post">
+<form action="#" th:action="@{/registration}" class="form" th:object="${profile}" enctype="multipart/form-data"
+      method="post">
     <h2>Registration</h2>
 
-    <div th:class="${#fields.hasErrors('username') ? 'form-group has-error has-feedback' : 'form-group has success'}">
-        <input type="text" name="username" id="username" th:field="*{username}"  placeholder="Username"/>
-        <label for="username" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect data</label>
+    <div class="element">
+        <input class="input" type="text" name="username" id="username" th:field="*{username}" placeholder="Username"/>
+        <div>
+            <label class="error-label" for="username" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect
+                data</label>
+        </div>
     </div>
 
-    <div th:class="${#fields.hasErrors('firstName') ? 'form-group has-error has-feedback' : 'form-group has success'}">
-        <input type="text" name="firstName" id="firstName" th:field="*{firstName}" placeholder="First Name"/>
-        <label for="firstName" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Incorrect data</label>
+    <span>
 
+    <div class="element">
+        <input class="input" type="text" name="firstName" id="firstName" th:field="*{firstName}"
+               placeholder="First Name"/>
+        <div>
+            <label class="error-label" for="firstName" th:if="${#fields.hasErrors('firstName')}"
+                   th:errors="*{firstName}">Incorrect
+                data</label>
+        </div>
     </div>
 
-    <div th:class="${#fields.hasErrors('lastName') ? 'form-group has-error has-feedback' : 'form-group has success'}">
-        <input type="text" name="lastName" id="lastName" th:field="*{lastName}" placeholder="Last Name"/>
-        <label for="lastName" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Incorrect data</label>
+    <div class="element">
+        <input class="input" type="text" name="lastName" id="lastName" th:field="*{lastName}" placeholder="Last Name"/>
+        <div>
+            <label class="error-label" for="lastName" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Incorrect
+                data</label>
+        </div>
+    </div>
+    </span>
+
+    <div class="element">
+        <input class="input" type="text" name="email" id="email" th:field="*{email}" placeholder="Email"/>
+        <div>
+            <label class="error-label" for="email" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect
+                data</label>
+        </div>
     </div>
 
-    <div th:class="${#fields.hasErrors('email') ? 'form-group has-error has-feedback' : 'form-group has success'}">
-        <input type="text" name="email" id="email" th:field="*{email}"  placeholder="Email"/>
-        <label for="email" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect data</label>
+    <div class="element">
+        <input class="input" type="password" name="password" id="password" th:field="*{password}"
+               placeholder="Password"/>
+        <div>
+            <label class="error-label" for="password" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect
+                data</label>
+        </div>
     </div>
 
-    <div th:class="${#fields.hasErrors('password') ? 'form-group has-error has-feedback' : 'form-group has success'}">
-        <input type="password" name="password" id="password" th:field="*{password}"  placeholder="Password"/>
-        <label for="password" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect data</label>
+    <div class="element">
+        <input class="input" type="password" name="confirmedPassword" id="confirmedPassword"
+               th:field="*{confirmedPassword}"
+               placeholder="Confirm your password"/>
+        <div>
+            <label class="error-label" for="confirmedPassword" th:if="${#fields.hasErrors('confirmedPassword')}"
+                   th:errors="*{confirmedPassword}">Incorrect data</label>
+        </div>
     </div>
 
-    <div th:class="${#fields.hasErrors('confirmedPassword') ? 'form-group has-error has-feedback' : 'form-group has success'}">
-        <input type="password" name="confirmedPassword" id="confirmedPassword" th:field="*{confirmedPassword}"  placeholder="Confirm your password"/>
-        <label for="confirmedPassword" th:if="${#fields.hasErrors('confirmedPassword')}" th:errors="*{confirmedPassword}">Incorrect data</label>
+    <div class="element">
+        <input class="input" type="file" id="file" th:object="${file}" accept=".jpg" title="Photo" name="file" placeholder="Photo"/>
     </div>
-
-    <div>
-        <input type="file" id="file" th:object="${file}" accept=".jpg" name="file" placeholder="Photo"/>
+    <div class="element">
+        <input type="submit" class="submit-button" id="addProfile" value="Accept"/>
+        <h4 class="text-center"><a th:href="@{/}">Already have an account?</a></h4>
     </div>
-
-    <input type="submit" id="addProfile" value="Accept"/>
 </form>
-
-<h4 class="text-center"><a th:href="@{/}">Login</a></h4>
-
 
 </body>
 </html>

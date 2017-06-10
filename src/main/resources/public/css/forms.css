@@ -1,15 +1,83 @@
-.title {
-    font-family: "Courier New";
-    color: white;
-    font-size: 30pt;
-    margin-left: 5%;
-}
-
 .header {
+
     position: relative;
-    min-width: 100%;
-    height: 30%;
+    width: 100%;
+    height: 100px;
     display: inline-block;
-    background-color: paleturquoise;
+    background-color: #98d9ea;
+    margin-bottom: 10pt;
 }
 
+.body {
+    background-color: azure;
+}
+
+.tab-button {
+    position: absolute;
+    background-color: #98d9ea;
+    border: none;
+    font-size: 150%;
+    font-family: "Gill Sans MT";
+    font-weight: bold;
+    color: blue;
+    text-align: center;
+    margin-left: 60%;
+    padding-top: 27pt;
+    padding-bottom: 27pt;
+}
+
+.tab-button:hover {
+    background-color: paleturquoise;
+    color: white;
+}
+
+.tab-button:active {
+    transform: translateY(4px);
+}
+
+.ref-img:active {
+    transform: translateY(4px);
+}
+
+.form {
+    border: solid;
+    border-color: lightskyblue;
+    width: 25%;
+    padding: 10pt;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    text-align: center;
+    color: blue;
+    background-color: ivory;
+    padding-left: 50pt;
+    padding-right: 50pt;
+    padding-top: 20pt;
+    padding-bottom: 50pt;
+}
+
+.submit-button {
+    background-color: #98d9ea;
+    border: 2px solid;
+    border-radius: 5px;
+    border-color: #98d9ea;
+    color: white;
+    padding: 5px 62px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.element {
+    margin: 15pt;
+}
+
+.input{
+    padding: 5px 0px;
+}
+
+.submit-button:hover {
+    background-color: white;
+    color: #98d9ea;
+}
