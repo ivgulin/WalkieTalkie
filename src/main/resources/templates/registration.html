@@ -34,7 +34,7 @@
             background-color: #98d9ea;
             border: none;
             font-size: 150%;
-            font-family: "Gill Sans MT";
+            font-family: "Georgia";
             font-weight: bold;
             color: blue;
             text-align: center;
@@ -77,6 +77,7 @@
             border: 2px solid;
             border-radius: 5px;
             border-color: #98d9ea;
+            font-family: "Georgia";
             color: white;
             padding: 5px 62px;
             text-align: center;
@@ -87,6 +88,7 @@
 
         .element {
             margin: 15pt;
+            font-family: "Georgia";
         }
 
         .input {
@@ -101,7 +103,19 @@
 
         .error-label {
             color: red;
+            font-family: "Georgia";
             margin-left: 10pt;
+        }
+        a{
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: blue;
+        }
+
+        a:hover{
+            color: #98d9ea;
         }
     </style>
     <!--The end of style tag-->
@@ -110,9 +124,9 @@
 
 <div class="main-header">
     <div class="header">
-    <a th:href="@{/login}">
-        <img th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100" width="100"/>
-        <img th:src="@{/img/title}" src="../public/image/title.png" height="100" width="285"/>
+    <a th:href="@{/profile}">
+        <img class="ref-img" th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100" width="100"/>
+        <img class="ref-img" th:src="@{/img/title}" src="../public/image/title.png" height="100" width="285"/>
     </a>
         <a th:href="@{/login}">
         <button class="tab-button" title='Log In'>Log In</button>
@@ -122,7 +136,7 @@
 
 <form action="#" th:action="@{/registration}" class="form" th:object="${profile}" enctype="multipart/form-data"
       method="post">
-    <h2>Registration</h2>
+    <h2 class="element">Registration</h2>
 
     <div class="element">
         <input class="input" type="text" name="username" id="username" th:field="*{username}" placeholder="Username"/>

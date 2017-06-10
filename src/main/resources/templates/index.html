@@ -27,7 +27,7 @@
             background-color: #98d9ea;
             border: none;
             font-size: 150%;
-            font-family: "Gill Sans MT";
+            font-family: "Georgia";
             font-weight: bold;
             color: blue;
             text-align: center;
@@ -62,7 +62,7 @@
             background-color: ivory;
             padding-left: 50pt;
             padding-right: 50pt;
-            padding-top: 20pt;
+            padding-top: 30pt;
             padding-bottom: 50pt;
         }
 
@@ -72,6 +72,7 @@
             border-radius: 5px;
             border-color: #98d9ea;
             color: white;
+            font-family: "Georgia";
             padding: 5px 62px;
             text-align: center;
             text-decoration: none;
@@ -92,6 +93,18 @@
             background-color: white;
             color: #98d9ea;
         }
+
+        a{
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: blue;
+        }
+
+        a:hover{
+            color: #98d9ea;
+        }
     </style>
     <!--The end of style tag-->
 </head>
@@ -99,7 +112,7 @@
 
 <div class="header">
     <span>
-    <a th:href="@{/login}">
+    <a th:href="@{/profile}">
         <img class="ref-img" th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100" width="100"/>
         <img class="ref-img" th:src="@{/img/title}" src="../public/image/title.png" height="100" width="285"/>
     </a>
@@ -110,7 +123,7 @@
 </div>
 
 <form method="POST" th:action="@{/login}" id="login" class="form">
-    <h2 class="form-heading">Login Into Your Account</h2>
+    <h2 class="element">Login Into Your Account</h2>
     <span th:text="${message}"></span>
     <div class="element">
          <input class="input" name="username" id="username" type="text" placeholder="Username"
