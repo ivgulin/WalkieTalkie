@@ -2,6 +2,7 @@ package com.mokujin.controller;
 
 import com.mokujin.domain.ChatMessage;
 import com.mokujin.domain.ChatMessageModel;
+import com.mokujin.domain.Profile;
 import com.mokujin.repository.ChatMessageRepository;
 import com.mokujin.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,18 +37,15 @@ public class ChatController {
     private ProfileService profileService;
 
     @GetMapping
-    public String chat(Model model) {
-        model.addAttribute("profile", profileService.findByUsername(username));
-        model.addAttribute("friend", profileService.findByUsername(friendName));
-        return "chat";
-    }
-
-    @PostMapping
-    public String chat(@RequestParam("username") String friendName) {
+    public String chat(@RequestParam("username") String friendName, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         this.username = authentication.getName();
         this.friendName = friendName;
-        return "redirect:/chat";
+        Profile profile = profileService.findByUsername(username);
+        model.addAttribute("profile", profile);
+        model.addAttribute("friend", profileService.findByUsername(friendName));
+        model.addAttribute("friends", profile.getFriends());
+        return "chat";
     }
 
     @PostMapping("/messages")

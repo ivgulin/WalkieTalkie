@@ -36,7 +36,7 @@
             font-weight: bold;
             color: blue;
             text-align: center;
-            margin-left: 60%;
+            margin-left: 56%;
             padding-top: 28pt;
             padding-bottom: 28pt;
         }
@@ -61,7 +61,7 @@
             padding: 10pt;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 2%;
+            margin-top: 1.5%;
             text-align: center;
             color: blue;
             background-color: ivory;
@@ -129,6 +129,37 @@
         </a>
         <a th:href="@{/profile}">
             <button class="tab-button" title='Profile'>Back To Profile</button>
+        </a>
+    </div>
+</div>
+
+<div class="main-profile">
+    <div class="profile">
+        <a th:href="@{/profile/edit}" title="Change photo">
+            <img class="image" th:src="@{/img/photo/(username=${profile.username})}" height="100" width="100"/>
+        </a>
+        <a th:href="@{/profile/edit}" title="Change name">
+            <h2 class="element edit"  th:text="${profile.firstName} + ' ' + ${profile.lastName}"></h2>
+        </a>
+        <a th:href="@{/profile/edit}" title="Change username">
+            <h4 class="element edit" th:text="'Username: '  + ${profile.username}"></h4>
+        </a>
+        <a th:href="@{/profile/edit}" title="Change email">
+            <h4 class="element edit" th:text="'Email: ' + ${profile.email}"></h4>
+        </a>
+        <h2 class="element">Friends:</h2>
+    </div>
+</div>
+
+
+<div class="friends">
+    <div class="friend" th:each="friend,iterationStatus  : ${friends}">
+        <a  th:href="@{/chat/(username=${friend.username})}">
+            <div class="line">
+                <img id="photo" class="image" th:src="@{/img/photo/(username=${friend.username})}" height="50"
+                     width="50"/>
+                <h4 class="element" id="name" th:text="${friend.firstName} + ' ' + ${friend.lastName}"></h4>
+            </div>
         </a>
     </div>
 </div>

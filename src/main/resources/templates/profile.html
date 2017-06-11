@@ -113,18 +113,18 @@
         }
 
         #logout {
-            margin-left: 60%;
+            margin-left: 61.5%;
         }
 
         #settings {
-            margin-left: 53.5%;
+            margin-left: 54%;
         }
 
         .profile {
             position: fixed;
             border: solid;
             border-color: lightskyblue;
-            width: 25%;
+            width: 200pt;
             margin-top: -1%;
             text-align: center;
             color: blue;
@@ -141,9 +141,8 @@
         }
 
         .friends {
-            margin-top: 20%;
-            width: 25.4%;
-            text-align: center;
+            margin-top: 16%;
+            width: 202.6pt;
             padding-top: 4pt;
             z-index: 9999;
         }
@@ -160,8 +159,13 @@
             background-color: lightblue;
         }
 
-        .line {
-            float: left;
+        #photo{
+            margin: 5px;
+        }
+
+        #name{
+            margin-left: 25%;
+            margin-top: -45px;
         }
     </style>
     <!--The end of style tag-->
@@ -198,7 +202,7 @@
             <img class="image" th:src="@{/img/photo/(username=${profile.username})}" height="100" width="100"/>
         </a>
         <a th:href="@{/profile/edit}" title="Change name">
-            <h2 class="element edit" th:id="name" th:text="${profile.firstName} + ' ' + ${profile.lastName}"></h2>
+            <h2 class="element edit"  th:text="${profile.firstName} + ' ' + ${profile.lastName}"></h2>
         </a>
         <a th:href="@{/profile/edit}" title="Change username">
             <h4 class="element edit" th:text="'Username: '  + ${profile.username}"></h4>
@@ -206,7 +210,6 @@
         <a th:href="@{/profile/edit}" title="Change email">
             <h4 class="element edit" th:text="'Email: ' + ${profile.email}"></h4>
         </a>
-        <h2 class="element">Friends:</h2>
     </div>
 </div>
 
@@ -214,7 +217,7 @@
 <div class="friends">
     <div class="friend" th:each="friend,iterationStatus  : ${friends}">
         <a  th:href="@{/chat/(username=${friend.username})}">
-            <div>
+            <div class="line">
                 <img id="photo" class="image" th:src="@{/img/photo/(username=${friend.username})}" height="50"
                      width="50"/>
                 <h4 class="element" id="name" th:text="${friend.firstName} + ' ' + ${friend.lastName}"></h4>

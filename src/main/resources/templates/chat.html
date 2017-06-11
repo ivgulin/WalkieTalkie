@@ -43,8 +43,8 @@
             font-weight: bold;
             color: blue;
             text-align: center;
-            margin-left: 60%;
-            padding-top: 28pt;
+            margin-left: 56%;
+            padding-top: 27.5pt;
             padding-bottom: 28pt;
         }
 
@@ -61,33 +61,26 @@
             transform: translateY(4px);
         }
 
-       .container{
-           margin-top: 0%;
-       }
+        .container {
+            margin-top: -4%;
+            position: fixed;
+        }
 
-       .row{
-           margin-top: 0%;
-           padding-right: 140pt;
+        .row {
+            margin-top: 0%;
+            padding-right: 190pt;
 
-       }
+        }
 
-       .col-md-12{
-           margin-top: 0%;
-           margin-left: 10%;
-       }
+        .col-md-12 {
+            margin-top: 0%;
+            margin-left: 27.45%;
+        }
 
         .element {
             margin: 15pt;
-            font-family: "Georgia";
-        }
-
-        .input {
-            padding: 5px 0px;
-        }
-
-        .submit-button:hover {
-            background-color: white;
-            color: #98d9ea;
+            color: blue;
+            font-family: Georgia, serif;
         }
 
         a {
@@ -98,13 +91,78 @@
             color: blue;
         }
 
+        .image {
+            border-radius: 50%;
+        }
+
         a:hover {
             color: #98d9ea;
         }
 
-        #sendMessage{
+        #sendMessage {
             font-family: "Georgia";
         }
+
+        .line {
+            display: inline-block;
+        }
+
+        .profile {
+            padding-top: 10pt;
+            position: fixed;
+            border: solid;
+            border-color: lightskyblue;
+            margin-top: -2.7%;
+            text-align: center;
+            color: blue;
+            background-color: ivory;
+            width: 200pt;
+            z-index: 9999;
+        }
+
+        .friend-profile {
+            padding-top: 10pt;
+            position: fixed;
+            border: solid;
+            border-color: lightskyblue;
+            margin-top: -1.7%;
+            text-align: center;
+            color: blue;
+            background-color: ivory;
+            width: 160pt;
+            z-index: 9999;
+            margin-left: 865pt;
+        }
+
+        .friends {
+            margin-top: 16%;
+            width: 202.6pt;
+            padding-top: 4pt;
+            z-index: 9999;
+        }
+
+        .friend {
+            border-right: solid lightskyblue;
+            border-bottom: 10px solid lightcyan;
+            width: 100%;
+            background-color: white;
+            clear: both;
+        }
+
+        .friend:hover {
+            background-color: lightblue;
+        }
+
+        #photo {
+            margin: 5px;
+            margin-left: 15px;
+        }
+
+        #name {
+            margin-left: 20%;
+            margin-top: -45px;
+        }
+
     </style>
     <!--The end of style tag-->
 
@@ -169,10 +227,9 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
     <style type="text/css">
         .fixed-panel {
-            min-height: 475px;
-            max-height: 475px;
+            min-height: 465px;
+            max-height: 465px;
         }
-
 
         .media-list {
             overflow: auto;
@@ -194,31 +251,73 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="row" style="padding-top:40px;">
+<div class="line">
+    <div class="container">
+        <div class="row" style="padding-top:40px;">
 
-        <div class="col-md-12">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <strong class="element"><span class="glyphicon glyphicon-list"></span> Chat History</strong>
-                </div>
-                <div class="panel-body fixed-panel">
-                    <ul class="media-list">
-                    </ul>
-                </div>
-                <div class="panel-footer">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Enter Message" id="messageText"
-                               autofocus=""/>
-                        <span class="input-group-btn">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <strong class="element"><span class="glyphicon glyphicon-list"></span> Chat History</strong>
+                    </div>
+                    <div class="panel-body fixed-panel">
+                        <ul class="media-list">
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter Message" id="messageText"
+                                   autofocus=""/>
+                            <span class="input-group-btn">
                                         <button class="btn btn-info" type="button" id="sendMessage">SEND <span
                                                 class="glyphicon glyphicon-send"></span></button>
                                     </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="main-profile">
+    <div class="friend-profile">
+        <img class="image" th:src="@{/img/photo/(username=${friend.username})}" height="100" width="100"/>
+        <h2 class="element edit" th:text="${friend.firstName} + ' ' + ${friend.lastName}"></h2>
+        <h4 class="element edit" th:text="'Username: '  + ${friend.username}"></h4>
+        <h4 class="element edit" th:text="'Email: ' + ${friend.email}"></h4>
+    </div>
+</div>
+
+<div class="main-profile line">
+    <div class="profile">
+        <a th:href="@{/profile/edit}" title="Change photo">
+            <img class="image" th:src="@{/img/photo/(username=${profile.username})}" height="100" width="100"/>
+        </a>
+        <a th:href="@{/profile/edit}" title="Change name">
+            <h2 class="element edit" th:text="${profile.firstName} + ' ' + ${profile.lastName}"></h2>
+        </a>
+        <a th:href="@{/profile/edit}" title="Change username">
+            <h4 class="element edit" th:text="'Username: '  + ${profile.username}"></h4>
+        </a>
+        <a th:href="@{/profile/edit}" title="Change email">
+            <h4 class="element edit" th:text="'Email: ' + ${profile.email}"></h4>
+        </a>
+    </div>
+</div>
+
+
+<div class="friends">
+    <div class="friend" th:each="friend,iterationStatus  : ${friends}">
+        <a th:href="@{/chat/(username=${friend.username})}">
+            <div class="line">
+                <img id="photo" class="image" th:src="@{/img/photo/(username=${friend.username})}" height="50"
+                     width="50"/>
+                <h4 class="element" id="name" th:text="${friend.firstName} + ' ' + ${friend.lastName}"></h4>
+            </div>
+        </a>
+    </div>
+</div>
+
 </body>
 </html>

@@ -4,6 +4,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Walkie Talkie</title>
     <link th:href="@{/img/logo}" href="../public/image/header-logo.jpg" rel="icon"/>
+
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.0/jquery.timeago.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.0.0/sockjs.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+
     <link rel="stylesheet" type="text/css" media="all" href="../public/css/forms.css"
           th:href="@{/public/css/forms.css}"/>
     <!--ATTENTION! As link to css file doesn't work due thymeleaf problems, while it gets solved, here will be style tag-->
@@ -33,7 +42,7 @@
             text-align: center;
             margin-left: 60%;
             padding-top: 27pt;
-            padding-bottom: 27pt;
+            padding-bottom: 26pt;
         }
 
         .tab-button:hover {
@@ -56,7 +65,7 @@
             padding: 10pt;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 5%;
+            margin-top: 3%;
             text-align: center;
             color: blue;
             background-color: ivory;
