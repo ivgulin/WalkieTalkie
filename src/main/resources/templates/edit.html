@@ -8,6 +8,7 @@
     <style>
         .main-header {
             width: 100%;
+            position: relative;
             height: 100px;
             margin: 0px auto;
         }
@@ -18,13 +19,13 @@
             height: 100px;
             display: inline-block;
             background-color: #98d9ea;
-            margin-bottom: 10pt;
         }
 
         .tab-button {
             position: relative;
             background-color: #98d9ea;
             border: none;
+            height: 100px;
             font-size: 150%;
             font-family: "Georgia";
             font-weight: bold;
@@ -33,8 +34,6 @@
             float: right;
             margin-right: 1%;
             white-space: nowrap;
-            padding-top: 27pt;
-            padding-bottom: 26pt;
         }
 
         .tab-button:hover {
@@ -54,9 +53,17 @@
             position: absolute;
         }
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (max-width: 1100px) {
             #banner {
                 display: none;
+            }
+
+            .main-profile {
+                display: none;
+            }
+
+            .friends{
+                max-width: 95%;
             }
 
             #logo {
@@ -71,14 +78,51 @@
             padding: 10pt;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 1.5%;
+            margin-top: 3%;
             text-align: center;
             color: blue;
             background-color: ivory;
             padding-left: 50pt;
             padding-right: 50pt;
-            padding-top: 20pt;
-            padding-bottom: 20pt;
+            padding-top: 30pt;
+            padding-bottom: 50pt;
+            min-width: 200px;
+        }
+
+        .profile {
+            position: relative;
+            border: solid;
+            border-color: lightskyblue;
+            width: 200pt;
+            margin-top: auto;
+            text-align: center;
+            color: blue;
+            background-color: ivory;
+            padding-top: 10pt;
+            z-index: 9999;
+        }
+
+        .main-profile {
+            position: absolute;
+            margin-top: 0%;
+            padding-top: 10pt;
+            width: 25%;
+            z-index: 0;
+        }
+
+        .friends {
+            width: 202.5pt;
+            padding-top: 4pt;
+            top: 59%;
+            min-width: 10pt;
+        }
+
+        .friend {
+            border-right: solid lightskyblue;
+            border-bottom: 10px solid lightcyan;
+            width: 100%;
+            background-color: white;
+            clear: both;
         }
 
         .submit-button {
@@ -96,8 +140,10 @@
         }
 
         .element {
-            margin: 15pt;
+            display: block;
             font-family: "Georgia";
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .body {
@@ -161,20 +207,17 @@
         <a th:href="@{/profile/edit}" title="Change email">
             <h4 class="element edit" th:text="'Email: ' + ${profile.email}"></h4>
         </a>
-        <h2 class="element">Friends:</h2>
     </div>
-</div>
-
-
-<div class="friends">
-    <div class="friend" th:each="friend,iterationStatus  : ${friends}">
-        <a th:href="@{/chat/(username=${friend.username})}">
-            <div class="line">
-                <img id="photo" class="image" th:src="@{/img/photo/(username=${friend.username})}" height="50"
-                     width="50"/>
-                <h4 class="element" id="name" th:text="${friend.firstName} + ' ' + ${friend.lastName}"></h4>
-            </div>
-        </a>
+    <div class="friends">
+        <div class="friend" th:each="friend,iterationStatus  : ${friends}">
+            <a th:href="@{/chat/(username=${friend.username})}">
+                <div class="line">
+                    <img id="photo" class="image" th:src="@{/img/photo/(username=${friend.username})}" height="50"
+                         width="50"/>
+                    <h4 class="element" id="name" th:text="${friend.firstName} + ' ' + ${friend.lastName}"></h4>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 

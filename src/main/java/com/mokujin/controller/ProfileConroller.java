@@ -49,6 +49,7 @@ public class ProfileConroller {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Profile profile = profileService.findByUsername(authentication.getName());
         model.addAttribute("profile", profile);
+        model.addAttribute("friends", profile.getFriends());
         return "edit";
     }
 
@@ -88,6 +89,10 @@ public class ProfileConroller {
             byLastName.forEach(profiles::add);
         }
         model.addAttribute("profiles", profiles);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Profile profile = profileService.findByUsername(authentication.getName());
+        model.addAttribute("profile", profile);
+        model.addAttribute("friends", profile.getFriends());
         return "search";
     }
 
@@ -115,12 +120,18 @@ public class ProfileConroller {
         Profile profile = profileService.findByUsername(authentication.getName());
         model.addAttribute("insideFriendshipRequests", profile.getInsideFriendShipRequests());
         model.addAttribute("outsideFriendShipRequests", profile.getOutsideFriendShipRequests());
+        model.addAttribute("profile", profile);
+        model.addAttribute("friends", profile.getFriends());
         return "requests";
     }
 
     @GetMapping("/changePassword")
     public String changePassword(Model model) {
         model.addAttribute("passwordChanger", new PasswordChanger());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Profile profile = profileService.findByUsername(authentication.getName());
+        model.addAttribute("profile", profile);
+        model.addAttribute("friends", profile.getFriends());
         return "editPassword";
     }
 

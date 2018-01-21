@@ -6,10 +6,12 @@
     <title>Walkie Talkie</title>
     <!--ATTENTION! As link to css file doesn't work due thymeleaf problems, while it gets solved, here will be style tag-->
     <style>
+
+
         .main-header {
             width: 100%;
+            position: relative;
             height: 100px;
-            margin: 0px auto;
         }
 
         .header {
@@ -18,13 +20,13 @@
             height: 100px;
             display: inline-block;
             background-color: #98d9ea;
-            margin-bottom: 10pt;
         }
 
         .tab-button {
             position: relative;
             background-color: #98d9ea;
             border: none;
+            height: 100px;
             font-size: 150%;
             font-family: "Georgia";
             font-weight: bold;
@@ -33,8 +35,6 @@
             float: right;
             margin-right: 1%;
             white-space: nowrap;
-            padding-top: 27pt;
-            padding-bottom: 26pt;
         }
 
         .tab-button:hover {
@@ -57,6 +57,14 @@
         @media only screen and (max-width: 1100px) {
             #banner {
                 display: none;
+            }
+
+            .profile {
+                display: none;
+            }
+
+            .friends{
+                max-width: 95%;
             }
 
             #logo {
@@ -100,9 +108,10 @@
         }
 
         .element {
-            margin: 15pt;
+            display: block;
             font-family: "Georgia";
-            color: blue;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .edit:hover {
@@ -127,11 +136,11 @@
         }
 
         .profile {
-            position: fixed;
+            position: relative;
             border: solid;
             border-color: lightskyblue;
             width: 200pt;
-            margin-top: -1%;
+            margin-top: auto;
             text-align: center;
             color: blue;
             background-color: ivory;
@@ -140,6 +149,7 @@
         }
 
         .main-profile {
+            position: absolute;
             margin-top: 0%;
             padding-top: 10pt;
             width: 25%;
@@ -147,10 +157,10 @@
         }
 
         .friends {
-            margin-top: 16%;
-            width: 202.6pt;
+            width: 202.5pt;
             padding-top: 4pt;
-            z-index: 9999;
+            top: 59%;
+            min-width: 10pt;
         }
 
         .friend {
@@ -219,20 +229,19 @@
             <h4 class="element edit" th:text="'Email: ' + ${profile.email}"></h4>
         </a>
     </div>
-</div>
-
-
-<div class="friends">
-    <div class="friend" th:each="friend,iterationStatus  : ${friends}">
-        <a th:href="@{/chat/(username=${friend.username})}">
-            <div class="line">
-                <img id="photo" class="image" th:src="@{/img/photo/(username=${friend.username})}" height="50"
-                     width="50"/>
-                <h4 class="element" id="name" th:text="${friend.firstName} + ' ' + ${friend.lastName}"></h4>
-            </div>
-        </a>
+    <div class="friends">
+        <div class="friend" th:each="friend,iterationStatus  : ${friends}">
+            <a th:href="@{/chat/(username=${friend.username})}">
+                <div class="line">
+                    <img id="photo" class="image" th:src="@{/img/photo/(username=${friend.username})}" height="50"
+                         width="50"/>
+                    <h4 class="element" id="name" th:text="${friend.firstName} + ' ' + ${friend.lastName}"></h4>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
+
 
 </body>
 </html>

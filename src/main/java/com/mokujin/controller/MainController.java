@@ -5,6 +5,7 @@ import com.mokujin.domain.Profile;
 import com.mokujin.service.ProfileService;
 import com.mokujin.service.SecurityService;
 import com.mokujin.validator.ProfileRegistrationValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +24,7 @@ import static com.mokujin.util.MultiPartFileUtil.convertMultiPartFileToByteArray
 
 @Controller
 @RequestMapping("/")
+@Slf4j
 public class MainController {
     @Autowired
     private ProfileService profileService;
@@ -36,69 +38,101 @@ public class MainController {
 
     @GetMapping
     public String home() {
-        return "index";
+        log.info("'home() invoked with no param'");
+        String redirect = "index";
+        log.info("'home() redirects on {}.jsp'", redirect);
+        return redirect;
     }
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
-        if (isUserAuthenticated()) return "redirect:/profile";
-        if (error != null)
+        log.info("'login() invoked with params - {}, {} , {}'", model, error, logout);
+        if (isUserAuthenticated()) {
+            String redirect = "redirect:/profile";
+            log.info("'login(); user authenticated - {}'", redirect);
+            return redirect;
+        }
+        if (error != null) {
             model.addAttribute("error", "Your username and password is invalid.");
+        }
 
-        if (logout != null)
+        if (logout != null) {
             model.addAttribute("message", "You have been logged out successfully.");
-
-        return "index";
+        }
+        String redirect = "index";
+        log.info("'login() returned model - {}, redirected to {}.jsp'", model, redirect);
+        return redirect;
     }
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password) {
+        log.info("'login() invoked with params - {}, {}'", username, password);
         Profile profile = profileService.findByUsername(username);
+        log.info("'profile = {}'", profile);
         if (profile == null || !password.equals(profile.getConfirmedPassword())) {
-            return "redirect:/login?error";
+            String redirect = "redirect:/login?error";
+            log.info("'login redirected to {}'", redirect);
+            return redirect;
         }
         securityService.autologin(profile.getUsername(), profile.getConfirmedPassword());
-        return "redirect:/profile";
+        String redirect = "redirect:/profile";
+        log.info("'login redirected to {}'", redirect);
+        return redirect;
     }
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        if (isUserAuthenticated()) return "redirect:/profile";
+        log.info("'registration() invoked with param - {}'", model);
+        if (isUserAuthenticated()) {
+            String redirect = "redirect:/profile";
+            log.info("'registration() redirected to {}'", redirect);
+            return redirect;
+        }
         Profile profile = new Profile();
         model.addAttribute("profile", profile);
         model.addAttribute("file", null);
-        return "registration";
+        String redirect = "registration";
+        log.info("'registration() returned model - {}, redirected to {}.jsp'", model, redirect);
+        return redirect;
     }
 
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("profile") Profile profile,
                                @RequestParam("file") MultipartFile file, BindingResult bindingResult) {
+        log.info("'registration() invoked with params - {}, {}, {}'", profile, file, bindingResult);
         if (file != null) {
             profile.setPhoto(convertMultiPartFileToByteArray(file));
         }
         validator.validate(profile, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            String redirect = "registration";
+            log.info("'registration() redirected to {}.jsp'", redirect);
+            return redirect;
         }
 
         profile = profileService.save(profile);
+        log.info("'profile saved to database - {}'", profile);
         securityService.autologin(profile.getUsername(), profile.getConfirmedPassword());
         //will be commented until end of development
         //MailUtil.sendAfterRegistrationMail(profile.getEmail());
-        return "redirect:/profile";
+        String redirected = "redirect:/profile";
+        log.info("'registration() redirected to {}'", redirected);
+        return redirected;
     }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
+        log.info("'logout() invoked with params {}, {}'", request, response);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/login?logout";
+        String redirect = "redirect:/login?logout";
+        log.info("'logout() redirected to {}'", redirect);
+        return redirect;
     }
-
 
 
     private boolean isUserAuthenticated() {
