@@ -10,39 +10,31 @@
             width: 100%;
             height: 100px;
             margin: 0px auto;
-            z-index: 0;
         }
 
         .header {
-            position: fixed;
+            position: absolute;
             width: 100%;
             height: 100px;
             display: inline-block;
             background-color: #98d9ea;
             margin-bottom: 10pt;
-            z-index: 9999;
-        }
-
-        .image {
-            border-radius: 50%;
-        }
-
-        .body {
-            background-color: azure;
         }
 
         .tab-button {
-            position: fixed;
+            position: relative;
             background-color: #98d9ea;
             border: none;
-            font-size: 130%;
+            font-size: 150%;
             font-family: "Georgia";
             font-weight: bold;
             color: blue;
             text-align: center;
-            margin-left: 46%;
-            padding-top: 28pt;
-            padding-bottom: 28pt;
+            float: right;
+            margin-right: 1%;
+            white-space: nowrap;
+            padding-top: 27pt;
+            padding-bottom: 26pt;
         }
 
         .tab-button:hover {
@@ -58,6 +50,20 @@
             transform: translateY(4px);
         }
 
+        #banner {
+            position: absolute;
+        }
+
+        @media only screen and (max-width: 1100px) {
+            #banner {
+                display: none;
+            }
+
+            #logo {
+                position: absolute;
+            }
+        }
+
         #search {
             border: 2px solid;
             border-radius: 5px;
@@ -67,8 +73,8 @@
 
         #search-bar {
             position: absolute;
-            margin-top: -50pt;
-            margin-left: 38%;
+            margin-top: -53pt;
+            margin-left: 37%;
         }
 
         .submit-button {
@@ -83,6 +89,14 @@
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
+        }
+
+        .body {
+            background-color: azure;
+        }
+
+        .image {
+            border-radius: 50%;
         }
 
         .element {
@@ -110,14 +124,6 @@
 
         a:hover {
             color: #98d9ea;
-        }
-
-        #logout {
-            margin-left: 61.5%;
-        }
-
-        #settings {
-            margin-left: 54%;
         }
 
         .profile {
@@ -159,11 +165,11 @@
             background-color: lightblue;
         }
 
-        #photo{
+        #photo {
             margin: 5px;
         }
 
-        #name{
+        #name {
             margin-left: 25%;
             margin-top: -45px;
         }
@@ -176,23 +182,25 @@
 <div class="main-header">
     <div class="header">
         <a th:href="@{/profile}">
-            <img class="ref-img" th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100" width="100"/>
-            <img class="ref-img" th:src="@{/img/title}" src="../public/image/title.png" height="100" width="285"/>
+            <img class="ref-img" id="logo" th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100"/>
+            <img class="ref-img" id="banner" th:src="@{/img/title}" src="../public/image/title.png" height="100"/>
         </a>
 
         <form id="search-bar" th:action="@{/profile/search}" method="get">
             <input type="text" id="user" name="find" maxlength="30" placeholder="Search.."/>
             <button class="submit-button" type="submit" id="search">Click</button>
         </form>
-        <a th:href="@{/profile/requests}">
-            <button id="request" class="tab-button" title='Requests'>Requests</button>
+
+        <a th:href="@{/logout}">
+            <button class="tab-button" title='Logout'>Logout</button>
         </a>
         <a th:href="@{/profile/edit}">
-            <button id="settings" class="tab-button" title='Settings'>Settings</button>
+            <button class="tab-button" title='Settings'>Settings</button>
         </a>
-        <a th:href="@{/logout}">
-            <button id="logout" class="tab-button" title='Logout'>Logout</button>
+        <a th:href="@{/profile/requests}">
+            <button class="tab-button" title='Requests'>Requests</button>
         </a>
+
     </div>
 
 </div>
@@ -202,7 +210,7 @@
             <img class="image" th:src="@{/img/photo/(username=${profile.username})}" height="100" width="100"/>
         </a>
         <a th:href="@{/profile/edit}" title="Change name">
-            <h2 class="element edit"  th:text="${profile.firstName} + ' ' + ${profile.lastName}"></h2>
+            <h2 class="element edit" th:text="${profile.firstName} + ' ' + ${profile.lastName}"></h2>
         </a>
         <a th:href="@{/profile/edit}" title="Change username">
             <h4 class="element edit" th:text="'Username: '  + ${profile.username}"></h4>
@@ -216,7 +224,7 @@
 
 <div class="friends">
     <div class="friend" th:each="friend,iterationStatus  : ${friends}">
-        <a  th:href="@{/chat/(username=${friend.username})}">
+        <a th:href="@{/chat/(username=${friend.username})}">
             <div class="line">
                 <img id="photo" class="image" th:src="@{/img/photo/(username=${friend.username})}" height="50"
                      width="50"/>

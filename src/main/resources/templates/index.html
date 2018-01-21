@@ -17,9 +17,15 @@
           th:href="@{/public/css/forms.css}"/>
     <!--ATTENTION! As link to css file doesn't work due thymeleaf problems, while it gets solved, here will be style tag-->
     <style>
-        .header {
 
-            position: relative;
+        .main-header {
+            width: 100%;
+            height: 100px;
+            margin: 0px auto;
+        }
+
+        .header {
+            position: absolute;
             width: 100%;
             height: 100px;
             display: inline-block;
@@ -27,12 +33,8 @@
             margin-bottom: 10pt;
         }
 
-        .body {
-            background-color: azure;
-        }
-
         .tab-button {
-            position: absolute;
+            position: relative;
             background-color: #98d9ea;
             border: none;
             font-size: 150%;
@@ -40,7 +42,9 @@
             font-weight: bold;
             color: blue;
             text-align: center;
-            margin-left: 60%;
+            float: right;
+            margin-right: 1%;
+            white-space: nowrap;
             padding-top: 27pt;
             padding-bottom: 26pt;
         }
@@ -56,6 +60,24 @@
 
         .ref-img:active {
             transform: translateY(4px);
+        }
+
+        #banner {
+            position: absolute;
+        }
+
+        @media only screen and (max-width: 600px) {
+            #banner {
+                display: none;
+            }
+
+            #logo {
+                position: absolute;
+            }
+        }
+
+        .body {
+            background-color: azure;
         }
 
         .form {
@@ -124,14 +146,18 @@
 </head>
 <body class="body">
 
-<div class="header">
-    <a th:href="@{/profile}">
-        <img class="ref-img" th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100" width="100"/>
-        <img class="ref-img" th:src="@{/img/title}" src="../public/image/title.png" height="100" width="285"/>
-    </a>
-    <a th:href="@{/registration}">
-        <button class="tab-button" title='Registration'>Sign Up</button>
-    </a>
+<div class="main-header">
+    <div class="header">
+        <a th:href="@{/registration}">
+            <button class="tab-button" title='Registration'>Sign Up</button>
+        </a>
+        <a th:href="@{/profile}">
+            <img class="ref-img" id="logo" th:src="@{/img/fullLogo}" src="../public/image/logo.png" height="100"/>
+        </a>
+        <a th:href="@{/profile}">
+            <img class="ref-img" id="banner" th:src="@{/img/title}" src="../public/image/title.png" height="100"/>
+        </a>
+    </div>
 </div>
 
 <form method="POST" th:action="@{/login}" id="login" class="form">
